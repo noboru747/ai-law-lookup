@@ -51,7 +51,9 @@ function Footer() {
 }
 
 function Crumbs({ id }) {
-  const path = tree.path(id).filter((n) => n.id !== 'root');
+  const node = tree.node(id);
+  // The free-text entry is reached from the home page, so don't show it under the third category.
+  const path = node?.kind === 'freeform' ? [{ id, label: '自己描述' }] : tree.path(id).filter((n) => n.id !== 'root');
   return (
     <nav className="crumbs-nav" aria-label="位置">
       <a href="#/">首頁</a>
@@ -70,13 +72,46 @@ function leafTarget(n) {
   return hrefNode(n.id);
 }
 
+const FREEFORM_NODE = tree.leaves().find((l) => l.kind === 'freeform');
+
+/** Home-page entry: describe the situation in your own words (routed by the service in full mode, plain BM25 otherwise). */
+function HomeSearch() {
+  const [text, setText] = useState('');
+  function submit(e) {
+    e.preventDefault();
+    if (text.trim()) window.location.hash = hrefResult(FREEFORM_NODE.id, { q: text.trim() });
+  }
+  return (
+    <form onSubmit={submit} className="slot-form home-search" aria-label="直接描述你遇到的狀況" data-testid="home-search">
+      <label className="field">
+        <span className="field-label">直接描述你遇到的狀況</span>
+        <textarea
+          name="q"
+          rows={3}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="例如：網購的衣服尺寸不合想退"
+        />
+      </label>
+      <button type="submit" className="primary" disabled={!text.trim()}>
+        搜尋相關條文
+      </button>
+      <p className="muted">用自己的話寫即可。生成服務可用時，系統會先判斷問題類型再檢索；服務無法使用時改用固定規則檢索，並標示「未經問診」。</p>
+    </form>
+  );
+}
+
 function Menu({ node }) {
+  const isRoot = node.id === 'root';
+  // The free-text entry lives on the home page only; hide the duplicate under the third category.
+  const children = node.children.filter((c) => c.kind !== 'freeform');
   return (
     <main>
       <Crumbs id={node.id} />
-      <h1>{node.label}</h1>
+      {isRoot ? <HomeSearch /> : null}
+      <h1>{isRoot ? '或從常見情況開始' : node.label}</h1>
       <ul className="choices">
-        {node.children.map((c) => (
+        {children.map((c) => (
           <li key={c.id}>
             <a className="choice" href={c.kind === 'menu' ? hrefNode(c.id) : leafTarget(c)} data-node={c.id}>
               <span className="choice-label">{c.label}</span>

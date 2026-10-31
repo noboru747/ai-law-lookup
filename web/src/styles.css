@@ -148,3 +148,5 @@ mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2
 @keyframes flash-card { from { box-shadow: 0 0 0 4px var(--accent); } to { box-shadow: 0 0 0 0 transparent; } }
 .card.flash { animation: flash-card 1.6s ease-out; }
 @media (prefers-reduced-motion: reduce) { .card.flash { animation: none; outline: 3px solid var(--accent); } }
+.home-search { margin: 14px 0 22px; }
+.home-search + h1 { font-size: 1.1rem; }
