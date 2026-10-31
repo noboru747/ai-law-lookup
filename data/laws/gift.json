@@ -1,0 +1,1109 @@
+{
+ "schema_version": 1,
+ "doc": {
+  "doc_id": "gift",
+  "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+  "short_name": "商品(服務)禮券",
+  "aliases": [],
+  "doc_type": "定型化契約應記載及不得記載事項（公告）",
+  "unit_kind": "point",
+  "authority": "經濟部",
+  "issuing_authority": "經濟部會銜行政院農業委員會、衛生福利部、教育部、國家通訊傳播委員會、交通部、文化部、財政部、國軍退除役官兵輔導委員會",
+  "announcement": "109年4月10日經濟部會銜行政院農業委員會、衛生福利部、教育部、國家通訊傳播委員會、交通部、文化部、財政部、國軍退除役官兵輔導委員會於中華民國109年4月10日以經商字第10802414950號、農防字第1081497232號、衛授食字第1081203330號、臺教授體部字第1080036268號、通傳平臺字第10800615041號、交路字第10800336131號、文綜字第10810373961號、台財庫字第10800123801號、輔事字第10801010461號公告訂定。自110年1月1日生效，但業者得自願自公告日起適用。",
+  "announcement_page_lines": [
+   "中華民國109年4月10日經濟部會銜行政院農業委員會、衛生福利部、教育部、國家通訊傳播委員會、交通部、文化部、財政部、國軍退除役官兵輔導委員會以經商字第10802414950號、農防字第1081497232號、衛授食字第1081203330號、臺教授體部字第1080036268號、通傳平臺字第10800615041號、交路字第10800336131號、文綜字第10810373961號、台財庫字第10800123801號、輔事字第10801010461號公告訂定。自110年1月1日生效，但業者得自願自公告日起適用。"
+  ],
+  "parts": [
+   {
+    "part": "前言",
+    "marker": "壹",
+    "heading": "壹、前言"
+   },
+   {
+    "part": "應記載事項",
+    "marker": "貳",
+    "heading": "貳、應記載事項"
+   },
+   {
+    "part": "不得記載事項",
+    "marker": "參",
+    "heading": "參、不得記載事項"
+   },
+   {
+    "part": "附表",
+    "marker": "",
+    "heading": "附表-商品(服務)禮券定型化契約應記載及不得記載事項之主管機關及適用範圍"
+   }
+  ],
+  "source": {
+   "source_type": "ey_webpage",
+   "publisher": "行政院全球資訊網（行政院）",
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "file_url": "https://www.ey.gov.tw/File/D9A65CE181F97ACB?A=C",
+   "file_format": "odt",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "page_fetched_at": "2026-10-31T22:27:27+08:00",
+   "raw_file": "data/raw/ey/gift.odt",
+   "raw_sha256": "6ae3b2081ceb8c4cf2956c559a26a89254f9780094ee6b282028fb7b07ee98ed",
+   "page_raw_file": "data/raw/ey/gift.html",
+   "page_raw_sha256": "b84bb7006f81c4657cec42455d39a19c1907c2798d963c954d00bf7276952097",
+   "license": "政府資料開放授權條款-第1版",
+   "attribution": "資料來源：行政院全球資訊網（行政院）"
+  },
+  "unit_count": 36,
+  "unit_counts_by_kind": {
+   "preamble": 1,
+   "point": 16,
+   "table_row": 19
+  },
+  "deleted_unit_count": 0
+ },
+ "units": [
+  {
+   "id": "gift-pre",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "preamble",
+   "no": "0",
+   "no_label": "前言",
+   "title": "",
+   "part": "前言",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "前言"
+   ],
+   "order": 1,
+   "status": "active",
+   "text": "本事項所稱商品(服務)禮券，指發行人發行一定金額之憑證、磁條卡、晶片卡或其他類似性質之證券，由持有人以提示、交付或其他方法，向發行人或其指定之人請求交付或提供等同於上開證券所載金額之商品或服務。\n前項所稱商品(服務)禮券不包括發行人無償發行之抵用券、折扣(價)券，及電子票證發行管理條例所稱之電子票證。\n本事項之主管機關為經濟部、農業委員會、衛生福利部、教育部、國家通訊傳播委員會、交通部、文化部、財政部及國軍退除役官兵輔導委員會，其適用範圍，如附表。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-must-001",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "1",
+   "no_label": "應記載事項第一點",
+   "title": "",
+   "part": "應記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "應記載事項"
+   ],
+   "order": 2,
+   "status": "active",
+   "text": "一、商品(服務)禮券應記載下列事項：\n(一)發行人名稱、地址、統一編號及代表人姓名。如發行人非為實際商品(服務)之提供者時，並應記載實收資本額或在中華民國境內營業所用之資金，及實際商品(服務)提供者之名稱、地址、聯絡電話。\n(二)面額。\n(三)發售編號及出售日。\n(四)使用方式。\n(五)消費申訴(客服)專線。(例如：電話、電子信箱、網址或即時通訊軟體)。\n(六)履約保障機制，並載明逾保障期間者，發行人仍負履約責任。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-must-002",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "2",
+   "no_label": "應記載事項第二點",
+   "title": "",
+   "part": "應記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "應記載事項"
+   ],
+   "order": 3,
+   "status": "active",
+   "text": "二、發行人應依下列方式之一提供消費者自出售日起算至少一年期間之履約保障機制：\n(一)禮券面額已經○金融機構提供足額履約保證。保證期間自中華民國○年○月○日(出售日)起至○年○月○日止(至少一年)。\n(二)禮券面額已先時存入發行人於○金融機構開立之信託專戶，專款專用，信託期間自中華民國○年○月○日(出售日)起至○年○月○日止(至少一年)。\n(三)禮券面額已經○金融機構或○電子支付機構提供價金保管服務，並先時存入○金融機構之價金保管專戶或○電子支付機構於○金融機構開立之專用存款專戶，專款專用。保管期間自中華民國○年○月○日(出售日)起至○年○月○日止(至少一年)。\n(四)禮券面額已與依公司章程規定得對外為保證之同業同級○公司等為相互連帶擔保，持本禮券可依面額向上列公司請求提供等值之商品(服務)，上列公司不得為任何異議或差別待遇，亦不得要求任何費用或補償。連帶擔保期間自中華民國○年○月○日(出售日)起至○年○月○日止(至少一年)。\n(五)其他經主管機關許可之履約保障機制。(禮券明顯處應記載該履約保障機制內容，及主管機關許可字號)。\n前項第四款同業同級公司之實收資本額或市占率等基準，由主管機關定之。\n發行人變更第一項規定之履約保障機制者，其保障期間必須接續，不得中斷，並應於轉換履約保障機制生效日前公告之。\n發行人應提供第一項履約保障機制之佐證方式，以利消費者查詢。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-must-003",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "3",
+   "no_label": "應記載事項第三點",
+   "title": "",
+   "part": "應記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "應記載事項"
+   ],
+   "order": 4,
+   "status": "active",
+   "text": "三、禮券如有毀損或變形，而其重要內容(含主、副券)仍可辨認者，得請求交付商品(服務)或申請換發。\n禮券為記名式者，如發生遺失、被竊或滅失等情事，得申請補發。\n依前二項申請換發或補發禮券者，發行人如需收取費用，紙券每次不得超過新臺幣五十元，以磁條卡、晶片卡發行者，每張不得超過新臺幣一百元。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-must-004",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "4",
+   "no_label": "應記載事項第四點",
+   "title": "",
+   "part": "應記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "應記載事項"
+   ],
+   "order": 5,
+   "status": "active",
+   "text": "四、禮券應記載消費者要求退還禮券之程序及返還金額。\n消費者退還禮券，企業經營者得收取手續費，其費用不得逾返還金額百分之三。\n因不可歸責於消費者之事由退還禮券者，企業經營者不得收取手續費。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-must-005",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "5",
+   "no_label": "應記載事項第五點",
+   "title": "",
+   "part": "應記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "應記載事項"
+   ],
+   "order": 6,
+   "status": "active",
+   "text": "五、發行人以第三方為實際商品(服務)之提供者時，發行人之實收資本額或在中華民國境內營業所用之資金不得低於新臺幣三千萬元。但主管機關得就該額度公告調整之。\n未達前項之額度者，應經主管機關許可，並於禮券明顯處記載主管機關許可之年度、字號及期限。\n前二項發行人提供之履約保障機制，應依第二點第一項第一款至第三款之方式為之。",
+   "references": [
+    "gift-must-002"
+   ],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-must-006",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "6",
+   "no_label": "應記載事項第六點",
+   "title": "",
+   "part": "應記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "應記載事項"
+   ],
+   "order": 7,
+   "status": "active",
+   "text": "六、禮券以磁條卡、晶片卡或其他電子方式發行，而難以完整呈現應記載事項者，得僅記載發行人、履約保障機制及消費申訴(客服)專線。但發行人應以合理方式充分揭露其他應記載事項，並提供隨時查詢交易明細之方法。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-001",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "1",
+   "no_label": "不得記載事項第一點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 8,
+   "status": "active",
+   "text": "一、不得記載使用期限。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-002",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "2",
+   "no_label": "不得記載事項第二點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 9,
+   "status": "active",
+   "text": "二、不得記載未使用完之禮券餘額不得消費。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-003",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "3",
+   "no_label": "不得記載事項第三點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 10,
+   "status": "active",
+   "text": "三、不得記載免除交付商品或提供服務義務，或另行加收其他費用。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-004",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "4",
+   "no_label": "不得記載事項第四點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 11,
+   "status": "active",
+   "text": "四、不得記載不合理之使用限制。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-005",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "5",
+   "no_label": "不得記載事項第五點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 12,
+   "status": "active",
+   "text": "五、不得記載發行人得片面解約之條款。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-006",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "6",
+   "no_label": "不得記載事項第六點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 13,
+   "status": "active",
+   "text": "六、不得記載預先免除發行人故意或重大過失責任。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-007",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "7",
+   "no_label": "不得記載事項第七點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 14,
+   "status": "active",
+   "text": "七、發行人以第三方為實際商品(服務)之提供者時，不得記載消費者與實際商品(服務)提供者發生消費爭議時，免除發行人責任或類似意思表示。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-008",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "8",
+   "no_label": "不得記載事項第八點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 15,
+   "status": "active",
+   "text": "八、不得記載較現金消費不利之情形。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-009",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "9",
+   "no_label": "不得記載事項第九點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 16,
+   "status": "active",
+   "text": "九、不得記載違反其他法律強制禁止規定或為顯失公平或欺罔之事項。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-mustnot-010",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "point",
+   "no": "10",
+   "no_label": "不得記載事項第十點",
+   "title": "",
+   "part": "不得記載事項",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "不得記載事項"
+   ],
+   "order": 17,
+   "status": "active",
+   "text": "十、不得記載廣告僅供參考。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "id": "gift-tbl-01",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "1",
+   "no_label": "附表第一項",
+   "title": "零售業等",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 18,
+   "status": "active",
+   "text": "項次：一\n行業別：零售業等\n適用範圍：零售業(食品、服飾品、家庭電器及設備、電腦資訊設備、運動用品、百貨公司、超市、便利商店、量販店、加油站等)、視聽歌唱業、一般浴室業、三溫暖業、K書中心、室內兒童遊樂園業等行業。\n主管機關：經濟部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "一",
+    "行業別": "零售業等",
+    "適用範圍": "零售業(食品、服飾品、家庭電器及設備、電腦資訊設備、運動用品、百貨公司、超市、便利商店、量販店、加油站等)、視聽歌唱業、一般浴室業、三溫暖業、K書中心、室內兒童遊樂園業等行業。",
+    "主管機關": "經濟部"
+   }
+  },
+  {
+   "id": "gift-tbl-02",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "2",
+   "no_label": "附表第二項",
+   "title": "休閒農場",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 19,
+   "status": "active",
+   "text": "項次：二\n行業別：休閒農場\n適用範圍：休閒農場、民宿、農會、漁會、農村酒莊、田媽媽餐廳及農園等休閒農業經營場域。\n主管機關：農業委員會",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "二",
+    "行業別": "休閒農場",
+    "適用範圍": "休閒農場、民宿、農會、漁會、農村酒莊、田媽媽餐廳及農園等休閒農業經營場域。",
+    "主管機關": "農業委員會"
+   }
+  },
+  {
+   "id": "gift-tbl-03",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "3",
+   "no_label": "附表第三項",
+   "title": "森林遊樂區",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 20,
+   "status": "active",
+   "text": "項次：三\n行業別：森林遊樂區\n適用範圍：「森林遊樂區設置管理辦法」所述相關育樂活動、食宿及服務設施。\n主管機關：農業委員會",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "三",
+    "行業別": "森林遊樂區",
+    "適用範圍": "「森林遊樂區設置管理辦法」所述相關育樂活動、食宿及服務設施。",
+    "主管機關": "農業委員會"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-04",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "4",
+   "no_label": "附表第四項",
+   "title": "娛樂漁業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 21,
+   "status": "active",
+   "text": "項次：四\n行業別：娛樂漁業\n適用範圍：娛樂漁業。\n主管機關：農業委員會",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "四",
+    "行業別": "娛樂漁業",
+    "適用範圍": "娛樂漁業。",
+    "主管機關": "農業委員會"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-05",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "5",
+   "no_label": "附表第五項",
+   "title": "瘦身美容業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 22,
+   "status": "active",
+   "text": "項次：五\n行業別：瘦身美容業\n適用範圍：瘦身美容業。\n主管機關：衛生福利部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "五",
+    "行業別": "瘦身美容業",
+    "適用範圍": "瘦身美容業。",
+    "主管機關": "衛生福利部"
+   }
+  },
+  {
+   "id": "gift-tbl-06",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "6",
+   "no_label": "附表第六項",
+   "title": "美容美髮服務業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 23,
+   "status": "active",
+   "text": "項次：六\n行業別：美容美髮服務業\n適用範圍：臉部美容及理髮美髮業。\n主管機關：衛生福利部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "六",
+    "行業別": "美容美髮服務業",
+    "適用範圍": "臉部美容及理髮美髮業。",
+    "主管機關": "衛生福利部"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-07",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "7",
+   "no_label": "附表第七項",
+   "title": "餐飲業等",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 24,
+   "status": "active",
+   "text": "項次：七\n行業別：餐飲業等\n適用範圍：餐飲、烘焙等行業。\n主管機關：衛生福利部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "七",
+    "行業別": "餐飲業等",
+    "適用範圍": "餐飲、烘焙等行業。",
+    "主管機關": "衛生福利部"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-08",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "8",
+   "no_label": "附表第八項",
+   "title": "民俗調理業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 25,
+   "status": "active",
+   "text": "項次：八\n行業別：民俗調理業\n適用範圍：傳統整復推拿業、按摩業、腳底按摩業及經絡調理業。\n主管機關：衛生福利部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "八",
+    "行業別": "民俗調理業",
+    "適用範圍": "傳統整復推拿業、按摩業、腳底按摩業及經絡調理業。",
+    "主管機關": "衛生福利部"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-09",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "9",
+   "no_label": "附表第九項",
+   "title": "運動場館業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 26,
+   "status": "active",
+   "text": "項次：九\n行業別：運動場館業\n適用範圍：(一)高爾夫球場業。(二)運動場館業。\n主管機關：教育部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "九",
+    "行業別": "運動場館業",
+    "適用範圍": "(一)高爾夫球場業。(二)運動場館業。",
+    "主管機關": "教育部"
+   }
+  },
+  {
+   "id": "gift-tbl-10",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "10",
+   "no_label": "附表第十項",
+   "title": "電信業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 27,
+   "status": "active",
+   "text": "項次：十\n行業別：電信業\n適用範圍：電信業。\n主管機關：國家通訊傳播委員會",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十",
+    "行業別": "電信業",
+    "適用範圍": "電信業。",
+    "主管機關": "國家通訊傳播委員會"
+   }
+  },
+  {
+   "id": "gift-tbl-11",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "11",
+   "no_label": "附表第十一項",
+   "title": "觀光遊樂業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 28,
+   "status": "active",
+   "text": "項次：十一\n行業別：觀光遊樂業\n適用範圍：觀光遊樂業。\n主管機關：交通部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十一",
+    "行業別": "觀光遊樂業",
+    "適用範圍": "觀光遊樂業。",
+    "主管機關": "交通部"
+   }
+  },
+  {
+   "id": "gift-tbl-12",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "12",
+   "no_label": "附表第十二項",
+   "title": "觀光旅館業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 29,
+   "status": "active",
+   "text": "項次：十二\n行業別：觀光旅館業\n適用範圍：觀光旅館業。\n主管機關：交通部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十二",
+    "行業別": "觀光旅館業",
+    "適用範圍": "觀光旅館業。",
+    "主管機關": "交通部"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-13",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "13",
+   "no_label": "附表第十三項",
+   "title": "旅館業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 30,
+   "status": "active",
+   "text": "項次：十三\n行業別：旅館業\n適用範圍：旅館業。\n主管機關：交通部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十三",
+    "行業別": "旅館業",
+    "適用範圍": "旅館業。",
+    "主管機關": "交通部"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-14",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "14",
+   "no_label": "附表第十四項",
+   "title": "民宿經營業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 31,
+   "status": "active",
+   "text": "項次：十四\n行業別：民宿經營業\n適用範圍：民宿經營業。\n主管機關：交通部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十四",
+    "行業別": "民宿經營業",
+    "適用範圍": "民宿經營業。",
+    "主管機關": "交通部"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-15",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "15",
+   "no_label": "附表第十五項",
+   "title": "停車場經營業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 32,
+   "status": "active",
+   "text": "項次：十五\n行業別：停車場經營業\n適用範圍：路外停車場回數票。\n主管機關：交通部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十五",
+    "行業別": "停車場經營業",
+    "適用範圍": "路外停車場回數票。",
+    "主管機關": "交通部"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-16",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "16",
+   "no_label": "附表第十六項",
+   "title": "電影片映演業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 33,
+   "status": "active",
+   "text": "項次：十六\n行業別：電影片映演業\n適用範圍：電影片映演業。\n主管機關：文化部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十六",
+    "行業別": "電影片映演業",
+    "適用範圍": "電影片映演業。",
+    "主管機關": "文化部"
+   }
+  },
+  {
+   "id": "gift-tbl-17",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "17",
+   "no_label": "附表第十七項",
+   "title": "出版業等",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 34,
+   "status": "active",
+   "text": "項次：十七\n行業別：出版業等\n適用範圍：圖書出版業、文教育樂用品零售業。\n主管機關：文化部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十七",
+    "行業別": "出版業等",
+    "適用範圍": "圖書出版業、文教育樂用品零售業。",
+    "主管機關": "文化部"
+   },
+   "inherited_fields": [
+    "主管機關"
+   ]
+  },
+  {
+   "id": "gift-tbl-18",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "18",
+   "no_label": "附表第十八項",
+   "title": "菸酒販賣業",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 35,
+   "status": "active",
+   "text": "項次：十八\n行業別：菸酒販賣業\n適用範圍：菸酒販賣業。\n主管機關：財政部",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十八",
+    "行業別": "菸酒販賣業",
+    "適用範圍": "菸酒販賣業。",
+    "主管機關": "財政部"
+   }
+  },
+  {
+   "id": "gift-tbl-19",
+   "doc_id": "gift",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit": "table_row",
+   "no": "19",
+   "no_label": "附表第十九項",
+   "title": "農場",
+   "part": "附表",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "商品(服務)禮券定型化契約應記載及不得記載事項",
+    "附表"
+   ],
+   "order": 36,
+   "status": "active",
+   "text": "項次：十九\n行業別：農場\n適用範圍：國軍退除役官兵輔導委員會所屬農場。\n主管機關：國軍退除役官兵輔導委員會",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00",
+   "fields": {
+    "項次": "十九",
+    "行業別": "農場",
+    "適用範圍": "國軍退除役官兵輔導委員會所屬農場。",
+    "主管機關": "國軍退除役官兵輔導委員會"
+   }
+  }
+ ]
+}

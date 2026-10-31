@@ -1,0 +1,138 @@
+{
+ "schema_version": 1,
+ "doc": {
+  "doc_id": "cpa_ex",
+  "law_name": "通訊交易解除權合理例外情事適用準則",
+  "short_name": "通訊交易解除權例外準則",
+  "aliases": [],
+  "doc_type": "命令",
+  "unit_kind": "article",
+  "authority": "行政院",
+  "authority_basis": "全國法規資料庫法規類別：行政＞院本部＞消費者保護目",
+  "pcode": "J0170012",
+  "law_modified_date": "2015-12-31",
+  "law_effective_date": "",
+  "source": {
+   "source_type": "open_data",
+   "publisher": "法務部 全國法規資料庫",
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170012",
+   "api_url": "https://law.moj.gov.tw/api/ch/order/json",
+   "open_data_update_date": "2026/10/22 上午 12:00:00",
+   "fetched_at": "2026-10-31T22:27:25+08:00",
+   "raw_file": "data/raw/moj/J0170012.json",
+   "raw_sha256": "b8fb444da5a5d189de7d0913964949396f1de3aaa4501bbda3c78610f194bb7f",
+   "dump_sha256": "0cf8b584ad6e9ed56b8d027d5696aef7dd629f14b4ed192ebfb717f6fe290eea",
+   "license": "政府資料開放授權條款-第1版",
+   "attribution": "資料來源：全國法規資料庫（法務部）"
+  },
+  "unit_count": 4,
+  "unit_counts_by_kind": {
+   "article": 4
+  },
+  "deleted_unit_count": 0
+ },
+ "units": [
+  {
+   "id": "cpa_ex-001",
+   "doc_id": "cpa_ex",
+   "law_name": "通訊交易解除權合理例外情事適用準則",
+   "unit": "article",
+   "no": "1",
+   "no_label": "第 1 條",
+   "title": "",
+   "part": "",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "通訊交易解除權合理例外情事適用準則"
+   ],
+   "order": 1,
+   "status": "active",
+   "text": "本準則依消費者保護法（以下簡稱本法）第十九條第二項規定訂定之。",
+   "references": [
+    "cpa-019"
+   ],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170012",
+   "fetched_at": "2026-10-31T22:27:25+08:00"
+  },
+  {
+   "id": "cpa_ex-002",
+   "doc_id": "cpa_ex",
+   "law_name": "通訊交易解除權合理例外情事適用準則",
+   "unit": "article",
+   "no": "2",
+   "no_label": "第 2 條",
+   "title": "",
+   "part": "",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "通訊交易解除權合理例外情事適用準則"
+   ],
+   "order": 2,
+   "status": "active",
+   "text": "本法第十九條第一項但書所稱合理例外情事，指通訊交易之商品或服務有下列情形之一，並經企業經營者告知消費者，將排除本法第十九條第一項解除權之適用：\n一、易於腐敗、保存期限較短或解約時即將逾期。\n二、依消費者要求所為之客製化給付。\n三、報紙、期刊或雜誌。\n四、經消費者拆封之影音商品或電腦軟體。\n五、非以有形媒介提供之數位內容或一經提供即為完成之線上服務，經消費者事先同意始提供。\n六、已拆封之個人衛生用品。\n七、國際航空客運服務。",
+   "references": [
+    "cpa-019"
+   ],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170012",
+   "fetched_at": "2026-10-31T22:27:25+08:00"
+  },
+  {
+   "id": "cpa_ex-003",
+   "doc_id": "cpa_ex",
+   "law_name": "通訊交易解除權合理例外情事適用準則",
+   "unit": "article",
+   "no": "3",
+   "no_label": "第 3 條",
+   "title": "",
+   "part": "",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "通訊交易解除權合理例外情事適用準則"
+   ],
+   "order": 3,
+   "status": "active",
+   "text": "通訊交易，經中央主管機關依本法第十七條第一項公告其定型化契約應記載及不得記載事項者，適用該事項關於解除契約之規定。",
+   "references": [
+    "cpa-017"
+   ],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170012",
+   "fetched_at": "2026-10-31T22:27:25+08:00"
+  },
+  {
+   "id": "cpa_ex-004",
+   "doc_id": "cpa_ex",
+   "law_name": "通訊交易解除權合理例外情事適用準則",
+   "unit": "article",
+   "no": "4",
+   "no_label": "第 4 條",
+   "title": "",
+   "part": "",
+   "chapter": "",
+   "section": "",
+   "hierarchy": [],
+   "path": [
+    "通訊交易解除權合理例外情事適用準則"
+   ],
+   "order": 4,
+   "status": "active",
+   "text": "本準則自中華民國一百零五年一月一日施行。",
+   "references": [],
+   "external_references": [],
+   "unresolved_references": [],
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170012",
+   "fetched_at": "2026-10-31T22:27:25+08:00"
+  }
+ ]
+}

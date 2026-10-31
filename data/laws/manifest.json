@@ -1,0 +1,70 @@
+{
+ "schema_version": 1,
+ "snapshot_date": "2026-11-01",
+ "open_data_update_date": "2026/10/22 上午 12:00:00",
+ "license": "政府資料開放授權條款-第1版",
+ "attribution": "資料來源：全國法規資料庫（法務部）；行政院全球資訊網（行政院）",
+ "documents": [
+  {
+   "doc_id": "cpa",
+   "file": "cpa.json",
+   "law_name": "消費者保護法",
+   "unit_kind": "article",
+   "unit_count": 78,
+   "source_type": "open_data",
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170001",
+   "fetched_at": "2026-10-31T22:27:20+08:00"
+  },
+  {
+   "doc_id": "cpa_er",
+   "file": "cpa_er.json",
+   "law_name": "消費者保護法施行細則",
+   "unit_kind": "article",
+   "unit_count": 43,
+   "source_type": "open_data",
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170002",
+   "fetched_at": "2026-10-31T22:27:25+08:00"
+  },
+  {
+   "doc_id": "cpa_ex",
+   "file": "cpa_ex.json",
+   "law_name": "通訊交易解除權合理例外情事適用準則",
+   "unit_kind": "article",
+   "unit_count": 4,
+   "source_type": "open_data",
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170012",
+   "fetched_at": "2026-10-31T22:27:25+08:00"
+  },
+  {
+   "doc_id": "cpa_med",
+   "file": "cpa_med.json",
+   "law_name": "消費爭議調解辦法",
+   "unit_kind": "article",
+   "unit_count": 33,
+   "source_type": "open_data",
+   "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170008",
+   "fetched_at": "2026-10-31T22:27:25+08:00"
+  },
+  {
+   "doc_id": "gift",
+   "file": "gift.json",
+   "law_name": "商品(服務)禮券定型化契約應記載及不得記載事項",
+   "unit_kind": "point",
+   "unit_count": 36,
+   "source_type": "ey_webpage",
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87",
+   "fetched_at": "2026-10-31T22:27:30+08:00"
+  },
+  {
+   "doc_id": "gym",
+   "file": "gym.json",
+   "law_name": "健身中心定型化契約應記載及不得記載事項",
+   "unit_kind": "point",
+   "unit_count": 37,
+   "source_type": "ey_webpage",
+   "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/a8a9e88e-6f7a-49bc-a4d7-d990a1d9840d",
+   "fetched_at": "2026-10-31T22:27:36+08:00"
+  }
+ ],
+ "references_file": "references.json"
+}

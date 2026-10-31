@@ -1,0 +1,1847 @@
+{
+ "schema_version": 1,
+ "stats": {
+  "edges": 120,
+  "mentions": 109,
+  "edges_by_status": {
+   "resolved": 108,
+   "external": 12
+  }
+ },
+ "edges": [
+  {
+   "from_id": "cpa-007-1",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    91,
+    93
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-007",
+   "to_doc": "cpa",
+   "target_number": "7"
+  },
+  {
+   "from_id": "cpa-008",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第七條",
+   "span": [
+    122,
+    125
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-007",
+   "to_doc": "cpa",
+   "target_number": "7"
+  },
+  {
+   "from_id": "cpa-009",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第七條",
+   "span": [
+    40,
+    43
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-007",
+   "to_doc": "cpa",
+   "target_number": "7"
+  },
+  {
+   "from_id": "cpa-017",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    332,
+    334
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-016",
+   "to_doc": "cpa",
+   "target_number": "16"
+  },
+  {
+   "from_id": "cpa-018",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十九條",
+   "span": [
+    135,
+    139
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19"
+  },
+  {
+   "from_id": "cpa-018",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十九條第二項",
+   "span": [
+    163,
+    170
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "cpa-018",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十九條第一項",
+   "span": [
+    174,
+    181
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa-019",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    125,
+    127
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-018",
+   "to_doc": "cpa",
+   "target_number": "18"
+  },
+  {
+   "from_id": "cpa-019-2",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十九條第一項",
+   "span": [
+    4,
+    11
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa-019-2",
+   "from_doc": "cpa",
+   "status": "external",
+   "raw": "第二百五十九條",
+   "span": [
+    165,
+    172
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民法",
+   "target_number": "259"
+  },
+  {
+   "from_id": "cpa-036",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第三十三條",
+   "span": [
+    27,
+    32
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-033",
+   "to_doc": "cpa",
+   "target_number": "33"
+  },
+  {
+   "from_id": "cpa-037",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    56,
+    58
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-036",
+   "to_doc": "cpa",
+   "target_number": "36"
+  },
+  {
+   "from_id": "cpa-038",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前五條",
+   "span": [
+    15,
+    18
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-033",
+   "to_doc": "cpa",
+   "target_number": "33"
+  },
+  {
+   "from_id": "cpa-038",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前五條",
+   "span": [
+    15,
+    18
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-034",
+   "to_doc": "cpa",
+   "target_number": "34"
+  },
+  {
+   "from_id": "cpa-038",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前五條",
+   "span": [
+    15,
+    18
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-035",
+   "to_doc": "cpa",
+   "target_number": "35"
+  },
+  {
+   "from_id": "cpa-038",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前五條",
+   "span": [
+    15,
+    18
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-036",
+   "to_doc": "cpa",
+   "target_number": "36"
+  },
+  {
+   "from_id": "cpa-038",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前五條",
+   "span": [
+    15,
+    18
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-037",
+   "to_doc": "cpa",
+   "target_number": "37"
+  },
+  {
+   "from_id": "cpa-044",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    4,
+    6
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-043",
+   "to_doc": "cpa",
+   "target_number": "43"
+  },
+  {
+   "from_id": "cpa-044-1",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    0,
+    2
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-044",
+   "to_doc": "cpa",
+   "target_number": "44"
+  },
+  {
+   "from_id": "cpa-045-2",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第四十五條之三",
+   "span": [
+    108,
+    115
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-045-3",
+   "to_doc": "cpa",
+   "target_number": "45-3"
+  },
+  {
+   "from_id": "cpa-045-3",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    5,
+    7
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-045-2",
+   "to_doc": "cpa",
+   "target_number": "45-2"
+  },
+  {
+   "from_id": "cpa-045-4",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第四十五條之五",
+   "span": [
+    96,
+    103
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-045-5",
+   "to_doc": "cpa",
+   "target_number": "45-5"
+  },
+  {
+   "from_id": "cpa-045-5",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    4,
+    6
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-045-4",
+   "to_doc": "cpa",
+   "target_number": "45-4"
+  },
+  {
+   "from_id": "cpa-046",
+   "from_doc": "cpa",
+   "status": "external",
+   "raw": "第二十五條至第二十九條",
+   "span": [
+    34,
+    45
+   ],
+   "relation": "mutatis_mutandis",
+   "method": "named-law",
+   "target_law": "鄉鎮市調解條例",
+   "target_number": "25至29"
+  },
+  {
+   "from_id": "cpa-049",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第五十條",
+   "span": [
+    50,
+    54
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-050",
+   "to_doc": "cpa",
+   "target_number": "50"
+  },
+  {
+   "from_id": "cpa-049",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第五十三條",
+   "span": [
+    64,
+    69
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-053",
+   "to_doc": "cpa",
+   "target_number": "53"
+  },
+  {
+   "from_id": "cpa-050",
+   "from_doc": "cpa",
+   "status": "external",
+   "raw": "第一百九十四條",
+   "span": [
+    155,
+    162
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民法",
+   "target_number": "194"
+  },
+  {
+   "from_id": "cpa-050",
+   "from_doc": "cpa",
+   "status": "external",
+   "raw": "第一百九十五條第一項",
+   "span": [
+    163,
+    173
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民法",
+   "target_number": "195",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa-050",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    255,
+    257
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-049",
+   "to_doc": "cpa",
+   "target_number": "49"
+  },
+  {
+   "from_id": "cpa-052",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第五十條",
+   "span": [
+    15,
+    19
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-050",
+   "to_doc": "cpa",
+   "target_number": "50"
+  },
+  {
+   "from_id": "cpa-054",
+   "from_doc": "cpa",
+   "status": "external",
+   "raw": "第四十一條",
+   "span": [
+    21,
+    26
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民事訴訟法",
+   "target_number": "41"
+  },
+  {
+   "from_id": "cpa-054",
+   "from_doc": "cpa",
+   "status": "external",
+   "raw": "第四十一條",
+   "span": [
+    126,
+    131
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民事訴訟法",
+   "target_number": "41"
+  },
+  {
+   "from_id": "cpa-055",
+   "from_doc": "cpa",
+   "status": "external",
+   "raw": "第四十八條",
+   "span": [
+    5,
+    10
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民事訴訟法",
+   "target_number": "48"
+  },
+  {
+   "from_id": "cpa-055",
+   "from_doc": "cpa",
+   "status": "external",
+   "raw": "第四十九條",
+   "span": [
+    11,
+    16
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民事訴訟法",
+   "target_number": "49"
+  },
+  {
+   "from_id": "cpa-055",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    22,
+    24
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa-054",
+   "to_doc": "cpa",
+   "target_number": "54"
+  },
+  {
+   "from_id": "cpa-056",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第二十四條",
+   "span": [
+    2,
+    7
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-024",
+   "to_doc": "cpa",
+   "target_number": "24"
+  },
+  {
+   "from_id": "cpa-056",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第二十五條",
+   "span": [
+    8,
+    13
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-025",
+   "to_doc": "cpa",
+   "target_number": "25"
+  },
+  {
+   "from_id": "cpa-056",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第二十六條",
+   "span": [
+    14,
+    19
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-026",
+   "to_doc": "cpa",
+   "target_number": "26"
+  },
+  {
+   "from_id": "cpa-056-1",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十七條第一項",
+   "span": [
+    22,
+    29
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-017",
+   "to_doc": "cpa",
+   "target_number": "17",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa-057",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十七條第六項",
+   "span": [
+    18,
+    25
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-017",
+   "to_doc": "cpa",
+   "target_number": "17",
+   "locator": "第六項"
+  },
+  {
+   "from_id": "cpa-057",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第三十三條",
+   "span": [
+    26,
+    31
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-033",
+   "to_doc": "cpa",
+   "target_number": "33"
+  },
+  {
+   "from_id": "cpa-057",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第三十八條",
+   "span": [
+    32,
+    37
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-038",
+   "to_doc": "cpa",
+   "target_number": "38"
+  },
+  {
+   "from_id": "cpa-058",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第三十六條",
+   "span": [
+    12,
+    17
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-036",
+   "to_doc": "cpa",
+   "target_number": "36"
+  },
+  {
+   "from_id": "cpa-058",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第三十八條",
+   "span": [
+    18,
+    23
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-038",
+   "to_doc": "cpa",
+   "target_number": "38"
+  },
+  {
+   "from_id": "cpa-059",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第三十七條",
+   "span": [
+    6,
+    11
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-037",
+   "to_doc": "cpa",
+   "target_number": "37"
+  },
+  {
+   "from_id": "cpa-059",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第三十六條",
+   "span": [
+    27,
+    32
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-036",
+   "to_doc": "cpa",
+   "target_number": "36"
+  },
+  {
+   "from_id": "cpa-064",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第二條第十款",
+   "span": [
+    28,
+    34
+   ],
+   "relation": "refers",
+   "method": "same-doc",
+   "to_id": "cpa-002",
+   "to_doc": "cpa",
+   "target_number": "2",
+   "locator": "第十款"
+  },
+  {
+   "from_id": "cpa-064",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十八條至第十九條之二",
+   "span": [
+    40,
+    51
+   ],
+   "relation": "refers",
+   "method": "same-doc+range",
+   "to_id": "cpa-018",
+   "to_doc": "cpa",
+   "target_number": "18",
+   "note": "range 18-19-2"
+  },
+  {
+   "from_id": "cpa-064",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十八條至第十九條之二",
+   "span": [
+    40,
+    51
+   ],
+   "relation": "refers",
+   "method": "same-doc+range",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "note": "range 18-19-2"
+  },
+  {
+   "from_id": "cpa-064",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十八條至第十九條之二",
+   "span": [
+    40,
+    51
+   ],
+   "relation": "refers",
+   "method": "same-doc+range",
+   "to_id": "cpa-019-1",
+   "to_doc": "cpa",
+   "target_number": "19-1",
+   "note": "range 18-19-2; target-deleted"
+  },
+  {
+   "from_id": "cpa-064",
+   "from_doc": "cpa",
+   "status": "resolved",
+   "raw": "第十八條至第十九條之二",
+   "span": [
+    40,
+    51
+   ],
+   "relation": "refers",
+   "method": "same-doc+range",
+   "to_id": "cpa-019-2",
+   "to_doc": "cpa",
+   "target_number": "19-2",
+   "note": "range 18-19-2"
+  },
+  {
+   "from_id": "cpa_er-001",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第六十三條",
+   "span": [
+    18,
+    23
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "to_id": "cpa-063",
+   "to_doc": "cpa",
+   "target_number": "63"
+  },
+  {
+   "from_id": "cpa_er-002",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二條第二款",
+   "span": [
+    2,
+    8
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-002",
+   "to_doc": "cpa",
+   "target_number": "2",
+   "locator": "第二款"
+  },
+  {
+   "from_id": "cpa_er-004",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第七條",
+   "span": [
+    2,
+    5
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-007",
+   "to_doc": "cpa",
+   "target_number": "7"
+  },
+  {
+   "from_id": "cpa_er-005",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第七條第一項",
+   "span": [
+    2,
+    8
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-007",
+   "to_doc": "cpa",
+   "target_number": "7",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_er-008",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第八條第二項",
+   "span": [
+    2,
+    8
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-008",
+   "to_doc": "cpa",
+   "target_number": "8",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "cpa_er-017",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第十九條第一項",
+   "span": [
+    42,
+    49
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_er-018",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第十九條第一項",
+   "span": [
+    20,
+    27
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_er-021",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二十一條第一項",
+   "span": [
+    19,
+    27
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-021",
+   "to_doc": "cpa",
+   "target_number": "21",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_er-022",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二十一條第二項第二款",
+   "span": [
+    2,
+    13
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-021",
+   "to_doc": "cpa",
+   "target_number": "21",
+   "locator": "第二項第二款"
+  },
+  {
+   "from_id": "cpa_er-023",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二十二條至第二十三條",
+   "span": [
+    2,
+    13
+   ],
+   "relation": "refers",
+   "method": "self-word:本法+range",
+   "to_id": "cpa-022",
+   "to_doc": "cpa",
+   "target_number": "22",
+   "note": "range 22-23"
+  },
+  {
+   "from_id": "cpa_er-023",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二十二條至第二十三條",
+   "span": [
+    2,
+    13
+   ],
+   "relation": "refers",
+   "method": "self-word:本法+range",
+   "to_id": "cpa-022-1",
+   "to_doc": "cpa",
+   "target_number": "22-1",
+   "note": "range 22-23"
+  },
+  {
+   "from_id": "cpa_er-023",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二十二條至第二十三條",
+   "span": [
+    2,
+    13
+   ],
+   "relation": "refers",
+   "method": "self-word:本法+range",
+   "to_id": "cpa-023",
+   "to_doc": "cpa",
+   "target_number": "23",
+   "note": "range 22-23"
+  },
+  {
+   "from_id": "cpa_er-025",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二十四條",
+   "span": [
+    2,
+    7
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-024",
+   "to_doc": "cpa",
+   "target_number": "24"
+  },
+  {
+   "from_id": "cpa_er-026",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二十五條",
+   "span": [
+    9,
+    14
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-025",
+   "to_doc": "cpa",
+   "target_number": "25"
+  },
+  {
+   "from_id": "cpa_er-028",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第二十九條",
+   "span": [
+    10,
+    15
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-029",
+   "to_doc": "cpa",
+   "target_number": "29"
+  },
+  {
+   "from_id": "cpa_er-029",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十一條",
+   "span": [
+    13,
+    18
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-031",
+   "to_doc": "cpa",
+   "target_number": "31"
+  },
+  {
+   "from_id": "cpa_er-030",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十三條第二項",
+   "span": [
+    2,
+    10
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-033",
+   "to_doc": "cpa",
+   "target_number": "33",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "cpa_er-031",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十三條第二項第五款",
+   "span": [
+    7,
+    18
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-033",
+   "to_doc": "cpa",
+   "target_number": "33",
+   "locator": "第二項第五款"
+  },
+  {
+   "from_id": "cpa_er-031",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十三條",
+   "span": [
+    48,
+    53
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-033",
+   "to_doc": "cpa",
+   "target_number": "33"
+  },
+  {
+   "from_id": "cpa_er-031",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十八條",
+   "span": [
+    54,
+    59
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-038",
+   "to_doc": "cpa",
+   "target_number": "38"
+  },
+  {
+   "from_id": "cpa_er-032",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十六條",
+   "span": [
+    7,
+    12
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-036",
+   "to_doc": "cpa",
+   "target_number": "36"
+  },
+  {
+   "from_id": "cpa_er-032",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十八條",
+   "span": [
+    13,
+    18
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-038",
+   "to_doc": "cpa",
+   "target_number": "38"
+  },
+  {
+   "from_id": "cpa_er-033",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十六條",
+   "span": [
+    3,
+    8
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-036",
+   "to_doc": "cpa",
+   "target_number": "36"
+  },
+  {
+   "from_id": "cpa_er-034",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第三十六條",
+   "span": [
+    13,
+    18
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-036",
+   "to_doc": "cpa",
+   "target_number": "36"
+  },
+  {
+   "from_id": "cpa_er-036",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第四十三條第二項",
+   "span": [
+    2,
+    10
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-043",
+   "to_doc": "cpa",
+   "target_number": "43",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "cpa_er-037",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第四十九條第一項",
+   "span": [
+    2,
+    10
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-049",
+   "to_doc": "cpa",
+   "target_number": "49",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_er-039",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第五十條第五項",
+   "span": [
+    2,
+    9
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-050",
+   "to_doc": "cpa",
+   "target_number": "50",
+   "locator": "第五項"
+  },
+  {
+   "from_id": "cpa_er-040",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第五十三條第一項",
+   "span": [
+    2,
+    10
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-053",
+   "to_doc": "cpa",
+   "target_number": "53",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_er-041",
+   "from_doc": "cpa_er",
+   "status": "resolved",
+   "raw": "第五十六條",
+   "span": [
+    3,
+    8
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-056",
+   "to_doc": "cpa",
+   "target_number": "56"
+  },
+  {
+   "from_id": "cpa_ex-001",
+   "from_doc": "cpa_ex",
+   "status": "resolved",
+   "raw": "第十九條第二項",
+   "span": [
+    18,
+    25
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "cpa_ex-002",
+   "from_doc": "cpa_ex",
+   "status": "resolved",
+   "raw": "第十九條第一項",
+   "span": [
+    2,
+    9
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_ex-002",
+   "from_doc": "cpa_ex",
+   "status": "resolved",
+   "raw": "第十九條第一項",
+   "span": [
+    57,
+    64
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_ex-003",
+   "from_doc": "cpa_ex",
+   "status": "resolved",
+   "raw": "第十七條第一項",
+   "span": [
+    15,
+    22
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-017",
+   "to_doc": "cpa",
+   "target_number": "17",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_med-001",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第四十四條之一",
+   "span": [
+    18,
+    25
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "to_id": "cpa-044-1",
+   "to_doc": "cpa",
+   "target_number": "44-1"
+  },
+  {
+   "from_id": "cpa_med-002",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第四十三條",
+   "span": [
+    16,
+    21
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-043",
+   "to_doc": "cpa",
+   "target_number": "43"
+  },
+  {
+   "from_id": "cpa_med-004",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    40,
+    42
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa_med-003",
+   "to_doc": "cpa_med",
+   "target_number": "3"
+  },
+  {
+   "from_id": "cpa_med-005",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    30,
+    32
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa_med-004",
+   "to_doc": "cpa_med",
+   "target_number": "4"
+  },
+  {
+   "from_id": "cpa_med-005",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第四十三條第一項",
+   "span": [
+    63,
+    71
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-043",
+   "to_doc": "cpa",
+   "target_number": "43",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_med-016",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第四十五條之二第一項",
+   "span": [
+    30,
+    40
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-045-2",
+   "to_doc": "cpa",
+   "target_number": "45-2",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "cpa_med-017",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    4,
+    6
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa_med-016",
+   "to_doc": "cpa_med",
+   "target_number": "16"
+  },
+  {
+   "from_id": "cpa_med-018",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    4,
+    6
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa_med-017",
+   "to_doc": "cpa_med",
+   "target_number": "17"
+  },
+  {
+   "from_id": "cpa_med-019",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第四十五條之四",
+   "span": [
+    22,
+    29
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-045-4",
+   "to_doc": "cpa",
+   "target_number": "45-4"
+  },
+  {
+   "from_id": "cpa_med-020",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第十六條第二項",
+   "span": [
+    127,
+    134
+   ],
+   "relation": "mutatis_mutandis",
+   "method": "same-doc",
+   "to_id": "cpa_med-016",
+   "to_doc": "cpa_med",
+   "target_number": "16",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "cpa_med-021",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    4,
+    6
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa_med-020",
+   "to_doc": "cpa_med",
+   "target_number": "20"
+  },
+  {
+   "from_id": "cpa_med-021",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第十七條",
+   "span": [
+    45,
+    49
+   ],
+   "relation": "mutatis_mutandis",
+   "method": "same-doc",
+   "to_id": "cpa_med-017",
+   "to_doc": "cpa_med",
+   "target_number": "17"
+  },
+  {
+   "from_id": "cpa_med-022",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    4,
+    6
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa_med-021",
+   "to_doc": "cpa_med",
+   "target_number": "21"
+  },
+  {
+   "from_id": "cpa_med-022",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "前條",
+   "span": [
+    188,
+    190
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "cpa_med-021",
+   "to_doc": "cpa_med",
+   "target_number": "21"
+  },
+  {
+   "from_id": "cpa_med-026",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第四十五條之三第二項",
+   "span": [
+    181,
+    191
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-045-3",
+   "to_doc": "cpa",
+   "target_number": "45-3",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "cpa_med-026",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第四十五條之五",
+   "span": [
+    192,
+    199
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-045-5",
+   "to_doc": "cpa",
+   "target_number": "45-5"
+  },
+  {
+   "from_id": "cpa_med-031",
+   "from_doc": "cpa_med",
+   "status": "resolved",
+   "raw": "第四十六條第二項",
+   "span": [
+    33,
+    41
+   ],
+   "relation": "refers",
+   "method": "self-word:本法",
+   "to_id": "cpa-046",
+   "to_doc": "cpa",
+   "target_number": "46",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "cpa_med-031",
+   "from_doc": "cpa_med",
+   "status": "external",
+   "raw": "第二十八條第一項",
+   "span": [
+    50,
+    58
+   ],
+   "relation": "mutatis_mutandis",
+   "method": "named-law",
+   "target_law": "鄉鎮市調解條例",
+   "target_number": "28",
+   "locator": "第一項"
+  },
+  {
+   "from_id": "gift-must-005",
+   "from_doc": "gift",
+   "status": "resolved",
+   "raw": "第二點第一項第一款至第三款",
+   "span": [
+    139,
+    152
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gift-must-002",
+   "to_doc": "gift",
+   "target_number": "2",
+   "locator": "第一項第一款至第三款"
+  },
+  {
+   "from_id": "gym-must-004",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第十點第二項",
+   "span": [
+    98,
+    104
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-010",
+   "to_doc": "gym",
+   "target_number": "10",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "gym-must-005",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第十點第三項",
+   "span": [
+    224,
+    230
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-010",
+   "to_doc": "gym",
+   "target_number": "10",
+   "locator": "第三項"
+  },
+  {
+   "from_id": "gym-must-008",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第十點",
+   "span": [
+    218,
+    221
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-010",
+   "to_doc": "gym",
+   "target_number": "10"
+  },
+  {
+   "from_id": "gym-must-009",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第十點第二項",
+   "span": [
+    58,
+    64
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-010",
+   "to_doc": "gym",
+   "target_number": "10",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "gym-must-010",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第十九條",
+   "span": [
+    558,
+    562
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "to_id": "cpa-019",
+   "to_doc": "cpa",
+   "target_number": "19"
+  },
+  {
+   "from_id": "gym-must-013",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第十點第二項第二款第三目",
+   "span": [
+    107,
+    119
+   ],
+   "relation": "mutatis_mutandis",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-010",
+   "to_doc": "gym",
+   "target_number": "10",
+   "locator": "第二項第二款第三目"
+  },
+  {
+   "from_id": "gym-must-015",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第九點至第十一點",
+   "span": [
+    20,
+    28
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-009",
+   "to_doc": "gym",
+   "target_number": "9",
+   "note": "range 9-11"
+  },
+  {
+   "from_id": "gym-must-015",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第九點至第十一點",
+   "span": [
+    20,
+    28
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-010",
+   "to_doc": "gym",
+   "target_number": "10",
+   "note": "range 9-11"
+  },
+  {
+   "from_id": "gym-must-015",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第九點至第十一點",
+   "span": [
+    20,
+    28
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-011",
+   "to_doc": "gym",
+   "target_number": "11",
+   "note": "range 9-11"
+  },
+  {
+   "from_id": "gym-must-015",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第十三點",
+   "span": [
+    29,
+    33
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-013",
+   "to_doc": "gym",
+   "target_number": "13"
+  },
+  {
+   "from_id": "gym-must-015",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "前點",
+   "span": [
+    34,
+    36
+   ],
+   "relation": "refers",
+   "method": "relative",
+   "to_id": "gym-must-014",
+   "to_doc": "gym",
+   "target_number": "14"
+  },
+  {
+   "from_id": "gym-must-019",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第十點",
+   "span": [
+    95,
+    98
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-010",
+   "to_doc": "gym",
+   "target_number": "10"
+  },
+  {
+   "from_id": "gym-must-022",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第五點",
+   "span": [
+    49,
+    52
+   ],
+   "relation": "refers",
+   "method": "same-doc+same-part-convention",
+   "to_id": "gym-must-005",
+   "to_doc": "gym",
+   "target_number": "5"
+  },
+  {
+   "from_id": "gym-must-023",
+   "from_doc": "gym",
+   "status": "resolved",
+   "raw": "第四十七條",
+   "span": [
+    49,
+    54
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "to_id": "cpa-047",
+   "to_doc": "cpa",
+   "target_number": "47"
+  },
+  {
+   "from_id": "gym-must-023",
+   "from_doc": "gym",
+   "status": "external",
+   "raw": "第二十八條第二項",
+   "span": [
+    60,
+    68
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民事訴訟法",
+   "target_number": "28",
+   "locator": "第二項"
+  },
+  {
+   "from_id": "gym-must-023",
+   "from_doc": "gym",
+   "status": "external",
+   "raw": "第四百三十六條之九",
+   "span": [
+    69,
+    78
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民事訴訟法",
+   "target_number": "436-9"
+  },
+  {
+   "from_id": "gym-mustnot-005",
+   "from_doc": "gym",
+   "status": "external",
+   "raw": "第六百零七條",
+   "span": [
+    28,
+    34
+   ],
+   "relation": "refers",
+   "method": "named-law",
+   "target_law": "民法",
+   "target_number": "607"
+  }
+ ]
+}
