@@ -270,7 +270,7 @@ async function generate(payload) {
 |---|---|
 | Phase 0 | 核對 2.1 節候選法規的名稱與官方來源，確定版本快照日（已完成） |
 | Phase 1 | 資料抓取與解析 → 條文 JSON（含 metadata、引用關係）（已完成，見 data/README.md） |
-| Phase 2 | 問診樹 JSON + 前端 + 前端檢索（降級版先能獨立運作） |
+| Phase 2 | 問診樹 JSON + 前端 + 前端檢索（降級版先能獨立運作）（已完成） |
 | Phase 3 | Ollama 生成層 + Tunnel + 降級切換 |
 | Phase 4 | 目錄層 + 轉介資源表 + 非法律模板 |
 | Phase 5 | 評測集與量測腳本 |
@@ -279,7 +279,7 @@ async function generate(payload) {
 ## 10. 待決事項
 
 - [x] 行業別最終選哪 2 個（已定：禮券、健身中心）
-- [ ] 葉節點清單定案
+- [x] 葉節點清單定案（Phase 2：5 個葉節點 + 2 個 out_of_scope 示範 + 其他，見 data/tree.json、ADR 0008）
 - [x] 版本快照基準日（已定：2026-11-01）
 - [ ] Ollama 使用的生成模型與 embedding 模型
 - [ ] 是否在 Phase 3 之後加入向量混合檢索

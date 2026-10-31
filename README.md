@@ -16,7 +16,7 @@
 |---|---|---|
 | 0 | 核對候選法規的名稱與官方來源，確定版本快照日 | 完成 |
 | 1 | 資料抓取與解析 → 條文 JSON | 完成（6 份文件、231 筆 unit、120 條引用邊；見 [data/README.md](data/README.md)） |
-| 2 | 問診樹 JSON + 前端 + 前端檢索 | 未開始 |
+| 2 | 問診樹 JSON + 前端 + 前端檢索 | 完成（降級版可獨立運作，見下方「本機啟動」） |
 | 3 | Ollama 生成層 + Tunnel + 降級切換 | 未開始 |
 | 4 | 目錄層 + 轉介資源表 + 非法律模板 | 未開始 |
 | 5 | 評測集與量測腳本 | 未開始 |
@@ -36,3 +36,17 @@ python scripts/fetch_moj.py && python scripts/fetch_ey.py   # 已有快取時不
 python scripts/build_corpus.py
 python scripts/validate.py && python scripts/test_refs.py
 ```
+
+## 本機啟動（Phase 2 前端）
+
+需要 Node.js 20 以上。前端在 `web/`，條文（`data/laws/`）與問診樹（`data/tree.json`）在 build 時直接從原位置匯入，不會複製一份。
+
+```
+cd web
+npm install
+npm run dev        # 開發伺服器 http://localhost:5173
+npm test           # tokenizer、問診樹完整性、各葉節點檢索、deleted 條文、降級邏輯
+npm run build      # 輸出純靜態檔到 web/dist（尚未部署）
+```
+
+目前沒有生成服務：頁首會顯示「降級版（未連線生成服務）」。Phase 3 只需設定環境變數 `VITE_API_URL`（參考 `web/.env.example`）。設計說明見 [ADR 0007](docs/decisions/0007-chinese-tokenizer.md)、[ADR 0008](docs/decisions/0008-consultation-tree-as-data.md)。
