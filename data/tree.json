@@ -1,0 +1,566 @@
+{
+  "schema_version": 1,
+  "_comment": "Consultation tree (spec 5). Data only: the front end interprets it, nothing here is hard-coded in JS. Schema and slot-rule semantics: docs/decisions/0008-consultation-tree-as-data.md",
+  "templates": {
+    "disclaimer": "本系統為法規資訊查詢，不是法律意見，也不對個案下結論。",
+    "referral": {
+      "title": "還需要協助時",
+      "items": [
+        {
+          "name": "全國消費者服務專線",
+          "phone": "1950",
+          "text": "消費諮詢與申訴可撥 1950，由專人說明處理方式並轉接各縣市消費者服務中心。"
+        }
+      ],
+      "note": "轉介資訊目前為固定文字；Phase 4 會改為人工維護、附來源與驗證日期的查表。"
+    },
+    "out_of_scope": {
+      "heading": "這個情境不在本系統的收錄範圍",
+      "body": "本系統只收錄消費者保護法及其子法，以及禮券、健身中心兩項定型化契約應記載及不得記載事項。你描述的情境可能涉及下列法規，但這些法規沒有收錄，因此不提供條文，也不會憑印象回答。",
+      "related_label": "可能相關的法規（僅供辨識，非收錄範圍）"
+    },
+    "freeform": {
+      "banner": "未經問診，結果僅供參考",
+      "detail": "以下是在全部收錄條文中以關鍵字比對的結果，沒有經過問診樹縮小範圍，也沒有依你的情況篩選，相關度可能偏低。",
+      "empty": "在收錄範圍內找不到與這段文字相符的條文。這可能表示問題不在收錄範圍內，建議改用上方的情境分類，或洽詢下列窗口。"
+    },
+    "industry_caveat": "這份公告規範的是業者的定型化契約「應該怎麼寫」；你手上的契約實際記載什麼，需自行對照。實際可否適用取決於契約內容與個案，本系統不下結論。"
+  },
+  "defs": {
+    "slots": {
+      "item_type": {
+        "id": "item_type",
+        "label": "商品或服務的類型",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "general", "label": "一般商品（以下類型皆非）" },
+          { "value": "fresh", "label": "生鮮食品、易腐敗或即將到期的商品" },
+          { "value": "custom", "label": "依我的要求特別製作的客製化商品" },
+          { "value": "media", "label": "影音商品或電腦軟體（實體媒介）" },
+          { "value": "digital", "label": "數位內容或線上服務（下載、串流、線上課程等）" },
+          { "value": "hygiene", "label": "個人衛生用品" },
+          { "value": "paper", "label": "報紙、期刊或雜誌" },
+          { "value": "flight", "label": "國際航空客運服務" },
+          { "value": "unsure", "label": "不確定" }
+        ]
+      },
+      "opened": {
+        "id": "opened",
+        "label": "商品是否已拆封？",
+        "type": "select",
+        "show_if": { "item_type": ["media", "hygiene"] },
+        "options": [
+          { "value": "yes", "label": "已拆封" },
+          { "value": "no", "label": "未拆封" }
+        ]
+      },
+      "notified": {
+        "id": "notified",
+        "label": "購買前，賣家是否已明確告知這類商品不適用退貨？",
+        "type": "select",
+        "show_if": { "item_type": ["fresh", "custom", "media", "digital", "hygiene", "paper", "flight"] },
+        "options": [
+          { "value": "yes", "label": "有告知" },
+          { "value": "no", "label": "沒有告知" },
+          { "value": "unsure", "label": "不確定／不記得" }
+        ]
+      }
+    },
+    "rule_sets": {
+      "item_exception": [
+        {
+          "when": { "item_type": ["fresh"] },
+          "pin": [{ "id": "cpa_ex-002", "mark": ["易於腐敗、保存期限較短或解約時即將逾期"] }],
+          "note": "你選的商品類型對應通訊交易解除權例外準則第 2 條所列的一款，已在下方條文中標示。"
+        },
+        {
+          "when": { "item_type": ["custom"] },
+          "pin": [{ "id": "cpa_ex-002", "mark": ["依消費者要求所為之客製化給付"] }],
+          "note": "你選的商品類型對應通訊交易解除權例外準則第 2 條所列的一款，已在下方條文中標示。"
+        },
+        {
+          "when": { "item_type": ["media"] },
+          "pin": [{ "id": "cpa_ex-002", "mark": ["經消費者拆封之影音商品或電腦軟體"] }],
+          "note": "你選的商品類型對應通訊交易解除權例外準則第 2 條所列的一款，已在下方條文中標示。"
+        },
+        {
+          "when": { "item_type": ["digital"] },
+          "pin": [{ "id": "cpa_ex-002", "mark": ["非以有形媒介提供之數位內容或一經提供即為完成之線上服務，經消費者事先同意始提供"] }],
+          "note": "你選的商品類型對應通訊交易解除權例外準則第 2 條所列的一款，已在下方條文中標示。"
+        },
+        {
+          "when": { "item_type": ["hygiene"] },
+          "pin": [{ "id": "cpa_ex-002", "mark": ["已拆封之個人衛生用品"] }],
+          "note": "你選的商品類型對應通訊交易解除權例外準則第 2 條所列的一款，已在下方條文中標示。"
+        },
+        {
+          "when": { "item_type": ["paper"] },
+          "pin": [{ "id": "cpa_ex-002", "mark": ["報紙、期刊或雜誌"] }],
+          "note": "你選的商品類型對應通訊交易解除權例外準則第 2 條所列的一款，已在下方條文中標示。"
+        },
+        {
+          "when": { "item_type": ["flight"] },
+          "pin": [{ "id": "cpa_ex-002", "mark": ["國際航空客運服務"] }],
+          "note": "你選的商品類型對應通訊交易解除權例外準則第 2 條所列的一款，已在下方條文中標示。"
+        },
+        {
+          "when": { "item_type": ["unsure"] },
+          "pin": [{ "id": "cpa_ex-002" }],
+          "note": "準則第 2 條列舉了七種例外情形，請逐款對照你的商品。"
+        },
+        {
+          "when": { "item_type": ["media", "hygiene"], "opened": ["yes"] },
+          "note": "你的商品已拆封：準則第 2 條第 4 款（影音商品、軟體）與第 6 款（個人衛生用品）都以「拆封」為要件，請對照條文用語。"
+        },
+        {
+          "when": { "item_type": ["media", "hygiene"], "opened": ["no"] },
+          "note": "你的商品尚未拆封：準則第 2 條第 4 款、第 6 款都以「拆封」為要件，請對照條文用語。"
+        },
+        {
+          "when": { "notified": ["no"] },
+          "pin": [
+            { "id": "cpa_ex-002", "mark": ["並經企業經營者告知消費者"] },
+            { "id": "cpa-018", "mark": ["商品或服務依第十九條第二項規定排除第十九條第一項解除權之適用"] }
+          ],
+          "note": "準則第 2 條規定，例外情形須「經企業經營者告知消費者」才排除解除權；消保法第 18 條第 1 項第 4 款要求企業經營者以書面提供這項資訊。你表示購買前沒有被告知，請對照這兩處原文。"
+        },
+        {
+          "when": { "notified": ["yes"] },
+          "pin": [
+            { "id": "cpa_ex-002", "mark": ["並經企業經營者告知消費者"] },
+            { "id": "cpa-018", "mark": ["商品或服務依第十九條第二項規定排除第十九條第一項解除權之適用"] }
+          ],
+          "note": "你表示賣家有告知。準則第 2 條仍要求商品屬所列情形之一；消保法第 18 條要求以書面（網路交易則為可供查閱、儲存的電子方式）提供資訊，請核對賣家告知的形式與內容。"
+        },
+        {
+          "when": { "notified": ["unsure"] },
+          "pin": [{ "id": "cpa_ex-002", "mark": ["並經企業經營者告知消費者"] }],
+          "note": "是否「經企業經營者告知」會影響例外是否成立，建議先找出購買頁面、訂單確認信或契約中的告知內容。"
+        }
+      ]
+    }
+  },
+  "root": {
+    "id": "root",
+    "label": "你遇到什麼情況？",
+    "children": [
+      {
+        "id": "shopping",
+        "label": "我在網路、電話或電視上買東西",
+        "description": "網購、電視購物、電話訂購、業務員上門推銷",
+        "children": [
+          {
+            "id": "online.return",
+            "label": "網購退貨",
+            "description": "東西收到了，想知道能不能退、怎麼退、多久內要退",
+            "type": "query",
+            "answer_kind": "rule",
+            "intro": "以下是通訊交易、訪問交易的解除權規定，以及你的情況會用到的例外規定。",
+            "law_scope": [
+              { "doc": "cpa", "section": "特種交易" },
+              { "doc": "cpa_er", "section": "特種交易" },
+              { "doc": "cpa_ex" }
+            ],
+            "query": "通訊交易 解除契約 解除權 退貨 退回商品 收受商品 七日內 無須說明理由 返還對價",
+            "seed": ["cpa-019"],
+            "top_k": 8,
+            "slots": [
+              {
+                "id": "channel",
+                "label": "你是用什麼方式買的？",
+                "type": "select",
+                "required": true,
+                "options": [
+                  { "value": "online", "label": "網路（購物網站、社群、App）" },
+                  { "value": "tv", "label": "電視或廣播購物" },
+                  { "value": "phone", "label": "電話或型錄訂購" },
+                  { "value": "visit", "label": "業務員上門或街頭推銷" },
+                  { "value": "store", "label": "在實體店面當場購買" },
+                  { "value": "unsure", "label": "不確定" }
+                ]
+              },
+              {
+                "id": "received_date",
+                "label": "收到商品的日期",
+                "type": "date",
+                "derive": { "kind": "days_since", "cite": "cpa-019", "statute_period": "七日" }
+              },
+              { "$ref": "item_type" },
+              { "$ref": "opened" },
+              { "$ref": "notified" }
+            ],
+            "rules": [
+              { "$ref": "item_exception" },
+              {
+                "when": { "channel": ["online", "tv", "phone"] },
+                "pin": [{ "id": "cpa-002", "background": true, "mark": ["通訊交易：指企業經營者以廣播、電視、電話、傳真、型錄、報紙、雜誌、網際網路、傳單或其他類似之方法，消費者於未能檢視商品或服務下而與企業經營者所訂立之契約"] }]
+              },
+              {
+                "when": { "channel": ["visit"] },
+                "pin": [{ "id": "cpa-002", "background": true, "mark": ["訪問交易：指企業經營者未經邀約而與消費者在其住居所、工作場所、公共場所或其他場所所訂立之契約"] }],
+                "note": "上門或街頭推銷屬於「訪問交易」（第 2 條第 11 款），第 19 條同樣適用；但第 19 條第 1 項但書的「合理例外情事」只寫了「通訊交易」。"
+              },
+              {
+                "when": { "channel": ["store"] },
+                "pin": [{ "id": "cpa-002", "background": true, "mark": ["通訊交易：指企業經營者以廣播、電視、電話、傳真、型錄、報紙、雜誌、網際網路、傳單或其他類似之方法，消費者於未能檢視商品或服務下而與企業經營者所訂立之契約"] }],
+                "note": "第 19 條的解除權以「通訊交易或訪問交易」為前提。在實體店面當場購買是否屬於通訊交易，請對照第 2 條第 10 款的定義；若不屬於，本頁條文可能不適用。"
+              }
+            ]
+          },
+          {
+            "id": "online.exception",
+            "label": "不能退貨的例外商品",
+            "description": "賣家說這個商品不能退，想知道有沒有這回事",
+            "type": "query",
+            "answer_kind": "exception",
+            "intro": "以下是通訊交易解除權的「合理例外情事」清單，以及賣家主張例外時要符合的前提。",
+            "law_scope": [
+              { "doc": "cpa_ex" },
+              { "doc": "cpa", "ids": ["cpa-018", "cpa-019"] }
+            ],
+            "query": "合理例外情事 排除解除權 易於腐敗 客製化 拆封 數位內容 個人衛生用品 告知消費者",
+            "seed": ["cpa_ex-002"],
+            "top_k": 4,
+            "slots": [{ "$ref": "item_type" }, { "$ref": "opened" }, { "$ref": "notified" }],
+            "rules": [{ "$ref": "item_exception" }]
+          }
+        ]
+      },
+      {
+        "id": "contracts",
+        "label": "我買了禮券，或簽了健身房的約",
+        "description": "預付型的商品、禮券、會員契約",
+        "children": [
+          {
+            "id": "gift",
+            "label": "禮券",
+            "description": "百貨公司、餐廳、店家的商品禮券與服務禮券",
+            "type": "query",
+            "answer_kind": "rule",
+            "intro": "以下是「商品(服務)禮券定型化契約應記載及不得記載事項」中與你的狀況相關的規定。",
+            "caveat_ref": "industry_caveat",
+            "law_scope": [
+              { "doc": "gift", "part": ["前言", "應記載事項", "不得記載事項"] },
+              { "doc": "cpa", "section": "定型化契約" }
+            ],
+            "query": "商品禮券 禮券 退還 返還金額 餘額 使用期限 履約保障 換發 補發",
+            "seed": [],
+            "top_k": 5,
+            "slots": [
+              {
+                "id": "issue",
+                "label": "你遇到的是哪一種狀況？",
+                "type": "select",
+                "required": true,
+                "options": [
+                  { "value": "expiry", "label": "禮券上寫了使用期限，或被說已經過期" },
+                  { "value": "balance", "label": "用了一部分，還有餘額" },
+                  { "value": "refund", "label": "想把禮券退成現金" },
+                  { "value": "issuer_down", "label": "發行的店家倒閉、歇業或不再營業" },
+                  { "value": "lost", "label": "禮券遺失、被竊或毀損" },
+                  { "value": "restrict", "label": "店家限制使用方式，或比付現金更不利" },
+                  { "value": "unsure", "label": "不確定" }
+                ]
+              },
+              {
+                "id": "form",
+                "label": "禮券的形式",
+                "type": "select",
+                "options": [
+                  { "value": "paper", "label": "紙本" },
+                  { "value": "electronic", "label": "磁條卡、晶片卡或電子方式" }
+                ]
+              },
+              {
+                "id": "named",
+                "label": "禮券是否為記名式？",
+                "type": "select",
+                "show_if": { "issue": ["lost"] },
+                "options": [
+                  { "value": "yes", "label": "記名" },
+                  { "value": "no", "label": "不記名" },
+                  { "value": "unsure", "label": "不確定" }
+                ]
+              }
+            ],
+            "rules": [
+              {
+                "when": { "issue": ["expiry"] },
+                "pin": [{ "id": "gift-mustnot-001", "mark": ["不得記載使用期限"] }],
+                "note": "不得記載事項第 1 點：「不得記載使用期限」。你的禮券上有沒有這類記載，請對照原文。"
+              },
+              {
+                "when": { "issue": ["balance"] },
+                "pin": [{ "id": "gift-mustnot-002", "mark": ["不得記載未使用完之禮券餘額不得消費"] }],
+                "note": "不得記載事項第 2 點涉及未使用完的餘額，請對照原文。"
+              },
+              {
+                "when": { "issue": ["refund"] },
+                "pin": [{ "id": "gift-must-004", "mark": ["不得逾返還金額百分之三", "因不可歸責於消費者之事由退還禮券者，企業經營者不得收取手續費"] }],
+                "note": "應記載事項第 4 點規範退還禮券的程序、返還金額與手續費上限，請對照原文。"
+              },
+              {
+                "when": { "issue": ["issuer_down"] },
+                "pin": [
+                  { "id": "gift-must-002", "mark": ["履約保障機制"] },
+                  { "id": "gift-must-005" }
+                ],
+                "note": "應記載事項第 2 點要求發行人提供至少一年的履約保障機制，請對照你的禮券有沒有載明。"
+              },
+              {
+                "when": { "issue": ["lost"] },
+                "pin": [{ "id": "gift-must-003", "mark": ["禮券如有毀損或變形", "禮券為記名式者，如發生遺失、被竊或滅失等情事，得申請補發"] }],
+                "note": "應記載事項第 3 點分別規範毀損變形（換發）與記名式禮券遺失（補發），以及換發補發的收費上限。"
+              },
+              {
+                "when": { "issue": ["lost"], "named": ["no"] },
+                "note": "第 3 點補發的文字是針對「記名式」禮券；不記名禮券是否適用，請對照原文。"
+              },
+              {
+                "when": { "issue": ["restrict"] },
+                "pin": [
+                  { "id": "gift-mustnot-004", "mark": ["不得記載不合理之使用限制"] },
+                  { "id": "gift-mustnot-008", "mark": ["不得記載較現金消費不利之情形"] }
+                ],
+                "note": "不得記載事項第 4 點、第 8 點分別涉及不合理的使用限制與比現金消費不利的情形。"
+              },
+              {
+                "when": { "form": ["electronic"] },
+                "pin": [{ "id": "gift-must-006", "mark": ["以磁條卡、晶片卡或其他電子方式發行"] }],
+                "note": "電子形式的禮券可以只記載部分事項（應記載事項第 6 點），請對照原文。"
+              }
+            ]
+          },
+          {
+            "id": "gym",
+            "label": "健身房解約",
+            "description": "想終止會員契約、退費、轉讓、暫停，或被自動續約",
+            "type": "query",
+            "answer_kind": "rule",
+            "intro": "以下是「健身中心定型化契約應記載及不得記載事項」中與你的狀況相關的規定。",
+            "caveat_ref": "industry_caveat",
+            "law_scope": [
+              { "doc": "gym" },
+              { "doc": "cpa", "section": "定型化契約" }
+            ],
+            "query": "健身中心 健身房 終止契約 解約 退費 未到期 手續費 會員",
+            "seed": ["gym-must-010"],
+            "top_k": 5,
+            "slots": [
+              {
+                "id": "reason",
+                "label": "你為什麼想解約或處理契約？",
+                "type": "select",
+                "required": true,
+                "options": [
+                  { "value": "personal", "label": "個人因素（沒時間、不想去、搬家等）" },
+                  { "value": "suspend", "label": "想暫停會籍（出國、傷病、懷孕、遷居、服兵役等）" },
+                  { "value": "moved", "label": "場館搬遷、縮小，或器材、教練變少" },
+                  { "value": "closed", "label": "場館倒閉、停業或無法繼續提供服務" },
+                  { "value": "force", "label": "天災、戰亂或政府法令變更等不可抗力" },
+                  { "value": "not_open", "label": "簽約時場館還沒開幕" },
+                  { "value": "transfer", "label": "想把會籍轉讓給別人" },
+                  { "value": "renew", "label": "被自動續約，或被要求續約" },
+                  { "value": "unsure", "label": "不確定" }
+                ]
+              },
+              {
+                "id": "sign_channel",
+                "label": "你是怎麼簽約的？",
+                "type": "select",
+                "show_if": { "reason": ["personal"] },
+                "options": [
+                  { "value": "remote", "label": "網路或電話訂購" },
+                  { "value": "visit", "label": "業務員上門或街頭推銷" },
+                  { "value": "onsite", "label": "親自到場簽約" }
+                ]
+              },
+              {
+                "id": "payment",
+                "label": "費用怎麼付？",
+                "type": "select",
+                "options": [
+                  { "value": "lump", "label": "一次付清" },
+                  { "value": "monthly", "label": "按月扣款" },
+                  { "value": "loan", "label": "透過第三方貸款或分期" }
+                ]
+              }
+            ],
+            "rules": [
+              {
+                "when": { "reason": ["personal"] },
+                "pin": [{ "id": "gym-must-010", "mark": ["消費者於契約期間屆滿前，得隨時終止契約"] }, { "id": "gym-must-015" }],
+                "note": "應記載事項第 10 點規範可歸責消費者事由（個人因素）的終止與費用計算，第 15 點規範通知與退款方式。"
+              },
+              {
+                "when": { "reason": ["personal"], "sign_channel": ["remote", "visit"] },
+                "pin": [{ "id": "gym-must-010", "mark": ["消費者係以通訊交易或訪問交易訂約者，雖已使用業者設施，七日內仍可適用消費者保護法第十九條解除契約"] }],
+                "add_query": "通訊交易 訪問交易 解除契約",
+                "note": "第 10 點末段提到以通訊交易或訪問交易訂約者可適用消保法第 19 條，請對照原文。"
+              },
+              {
+                "when": { "reason": ["suspend"] },
+                "pin": [{ "id": "gym-must-008", "mark": ["業者應於七工作日內辦理暫停會籍"] }],
+                "note": "應記載事項第 8 點列舉了可申請暫停會籍的事由與效果。"
+              },
+              {
+                "when": { "reason": ["moved"] },
+                "pin": [{ "id": "gym-must-009", "mark": ["營業場所搬遷或業者營業場所總面積縮減百分之二十以上", "運動器材設備或指導員等少於契約約定百分之二十以上"] }, { "id": "gym-must-015" }],
+                "note": "應記載事項第 9 點規範不可歸責消費者事由，並限於接獲通知或知悉後三十日內終止。"
+              },
+              {
+                "when": { "reason": ["closed"] },
+                "pin": [{ "id": "gym-must-013" }, { "id": "gym-must-015" }, { "id": "gym-must-022" }],
+                "note": "應記載事項第 13 點規範可歸責業者事由的終止與退費，第 22 點為業者的履約保障。"
+              },
+              {
+                "when": { "reason": ["force"] },
+                "pin": [{ "id": "gym-must-011" }, { "id": "gym-must-015" }],
+                "note": "應記載事項第 11 點規範不可歸責雙方事由（不可抗力）的終止與效果。"
+              },
+              {
+                "when": { "reason": ["not_open"] },
+                "pin": [{ "id": "gym-must-014", "mark": ["得於正式開放營運後七日內終止契約"] }],
+                "note": "應記載事項第 14 點針對履約地點正式營運前簽約的情況。"
+              },
+              {
+                "when": { "reason": ["transfer"] },
+                "pin": [{ "id": "gym-must-016" }, { "id": "gym-mustnot-012" }],
+                "note": "應記載事項第 16 點規範契約讓與第三人；不得記載事項第 12 點限制業者不得拋棄或增加不合理的讓與限制。"
+              },
+              {
+                "when": { "reason": ["renew"] },
+                "pin": [{ "id": "gym-mustnot-011" }, { "id": "gym-must-018" }],
+                "note": "不得記載事項第 11 點與應記載事項第 18 點涉及屆期續約與通知義務。"
+              },
+              {
+                "when": { "payment": ["monthly"] },
+                "pin": [{ "id": "gym-must-004", "mark": ["按月定額收取會籍費用"] }, { "id": "gym-must-019" }],
+                "note": "你是按月扣款：應記載事項第 4 點有按月收費契約的期間與額度規定，第 19 點規範未繳費用時業者的通知義務。"
+              },
+              {
+                "when": { "payment": ["loan"] },
+                "pin": [{ "id": "gym-must-007" }],
+                "note": "涉及第三方貸款時，請對照應記載事項第 7 點（消費者與第三人之消費貸款契約）。"
+              },
+              {
+                "when": { "payment": ["lump"] },
+                "pin": [{ "id": "gym-must-022" }],
+                "note": "預先一次付清的款項，業者須依第 22 點提供履約保障，請對照原文。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "trouble",
+        "label": "我想申訴、求償，或遇到其他問題",
+        "description": "不知道怎麼申訴、買到瑕疵品、疑似被騙，或不在上面分類",
+        "children": [
+          {
+            "id": "complaint.flow",
+            "label": "消費申訴流程",
+            "description": "和店家談不攏，想知道可以向誰申訴、怎麼申請調解",
+            "type": "process",
+            "answer_kind": "process",
+            "intro": "以下依消保法與消費爭議調解辦法整理出申訴、調解、訴訟的先後順序，並標示你目前可能處在哪一步。",
+            "law_scope": [
+              { "doc": "cpa", "chapter": "消費爭議之處理" },
+              { "doc": "cpa", "ids": ["cpa-042"] },
+              { "doc": "cpa_er", "chapter": "消費爭議之處理" },
+              { "doc": "cpa_med" }
+            ],
+            "query": "消費爭議 申訴 調解 消費者服務中心 消費者保護官 調解委員會",
+            "seed": ["cpa-043"],
+            "top_k": 4,
+            "steps": [
+              {
+                "label": "先向企業經營者反映或申訴",
+                "current_when": { "stage": ["none"] },
+                "units": ["cpa-043", "cpa_er-036"]
+              },
+              {
+                "label": "向消費者保護團體、消費者服務中心或消費者保護官申訴",
+                "current_when": { "stage": ["seller_no"] },
+                "units": ["cpa-043", "cpa-042"]
+              },
+              {
+                "label": "申請消費爭議調解",
+                "current_when": { "stage": ["center", "mediation"] },
+                "units": ["cpa-044", "cpa-044-1", "cpa_med-002", "cpa_med-003"]
+              },
+              {
+                "label": "調解成立或不成立之後",
+                "current_when": { "stage": ["mediation_failed"] },
+                "units": ["cpa-046"]
+              },
+              {
+                "label": "消費訴訟",
+                "current_when": { "stage": ["mediation_failed"] },
+                "units": ["cpa-047", "cpa-048"]
+              }
+            ],
+            "slots": [
+              {
+                "id": "stage",
+                "label": "目前進行到哪裡？",
+                "type": "select",
+                "required": true,
+                "options": [
+                  { "value": "none", "label": "還沒向店家反映" },
+                  { "value": "seller_no", "label": "向店家反映了，但沒有回應或不滿意" },
+                  { "value": "center", "label": "向消費者服務中心或消保團體申訴了，但沒有獲得妥適處理" },
+                  { "value": "mediation", "label": "已經申請調解，或正準備申請" },
+                  { "value": "mediation_failed", "label": "調解不成立" },
+                  { "value": "unsure", "label": "不確定" }
+                ]
+              }
+            ],
+            "rules": [
+              {
+                "when": { "stage": ["none", "seller_no"] },
+                "pin": [{ "id": "cpa-043", "mark": ["企業經營者對於消費者之申訴，應於申訴之日起十五日內妥適處理之"] }]
+              },
+              {
+                "when": { "stage": ["center", "mediation"] },
+                "pin": [{ "id": "cpa-044" }, { "id": "cpa_med-003", "mark": ["申請調解，應以書面為之"] }],
+                "note": "調解申請以書面為之，申請書須載明「爭議及申訴未獲妥適處理之情形」（調解辦法第 3 條第 2 項第 5 款），所以先申訴、再調解。"
+              },
+              {
+                "when": { "stage": ["mediation_failed"] },
+                "pin": [{ "id": "cpa-047" }],
+                "note": "調解不成立後的救濟途徑之一是消費訴訟；是否起訴、怎麼起訴屬於個案判斷，本系統不提供建議。"
+              }
+            ]
+          },
+          {
+            "id": "oos.defect_compensation",
+            "label": "買到瑕疵品，要求賠償或換貨",
+            "description": "商品本身有瑕疵，想主張減價、解約或損害賠償",
+            "type": "out_of_scope",
+            "related_laws": [{ "name": "民法", "topic": "買賣的物之瑕疵擔保" }],
+            "reason": "瑕疵擔保責任的要件與效果規定在民法的買賣章節，並非消保法的解除權（第 19 條）規範。民法屬於周邊法規，本系統只辨識、不收錄。"
+          },
+          {
+            "id": "oos.fraud",
+            "label": "疑似被詐騙（付款後沒收到貨、買到假貨）",
+            "description": "對方可能根本不打算出貨，或賣的是仿冒品",
+            "type": "out_of_scope",
+            "related_laws": [
+              { "name": "刑法", "topic": "詐欺罪" },
+              { "name": "商標法", "topic": "仿冒商標商品" }
+            ],
+            "reason": "涉及刑事責任的部分屬於刻意排除的範圍（刑法風險高，且不屬消費糾紛），商標法為周邊法規。若懷疑遭詐騙，請洽警察機關。"
+          },
+          {
+            "id": "other",
+            "label": "以上都不是，我自己描述",
+            "description": "用自己的話描述，系統在全部收錄條文中搜尋",
+            "type": "freeform"
+          }
+        ]
+      }
+    ]
+  }
+}
