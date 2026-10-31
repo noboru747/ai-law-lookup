@@ -1,5 +1,7 @@
 # 消費糾紛法規查詢助理 — 專案規格
 
+> **修訂說明**：本文件以原始規格為底稿。Phase 0／Phase 1 完成後所做的修訂，皆以「修訂（Phase 0）」「修訂（Phase 1）」標示，原文保留以利對照。修訂依據見 [phase0-source-verification.md](phase0-source-verification.md)、[ADR 0005](decisions/0005-snapshot-date.md)、[ADR 0006](decisions/0006-provenance-over-amendment-dates.md)。
+
 作品集專案。目的是展示對 DB、RAG 與 AI 應用邊界的理解，不是做一個完整的法律產品。 系統定位為「法規資訊查詢」，不提供法律意見、不對個案下結論。
 
 ## 1. 專案目標
@@ -24,6 +26,19 @@
 | 行業別 | 2～3 個高頻行業的「定型化契約應記載及不得記載事項」，候選：禮券、健身中心 | 先選 2 個 |
 
 ⚠️ 以上法規名稱是規劃階段的候選清單，必須逐一到官方來源核對後才能入庫。查無或名稱不符的，一律修正或刪除。
+
+**修訂（Phase 0／1）— 實際收錄清單**（皆已核對官方來源，詳見 phase0-source-verification.md）：
+
+| 類別 | 官方正式名稱 | 來源 | 備註 |
+|---|---|---|---|
+| 核心 | 消費者保護法（J0170001） | 全國法規資料庫開放資料 | 必收 |
+| 核心 | 消費者保護法施行細則（J0170002） | 全國法規資料庫開放資料 | **新增**：第 12～15 條（定型化契約）、第 17、18 條（解除權） |
+| 核心 | 消費爭議調解辦法（J0170008） | 全國法規資料庫開放資料 | **新增**：支撐「消費申訴流程」葉節點 |
+| 核心 | 通訊交易解除權合理例外情事適用準則（J0170012） | 全國法規資料庫開放資料 | 名稱與候選一致 |
+| 行業別 | **商品(服務)禮券定型化契約應記載及不得記載事項** | 行政院網站（ODT） | **名稱修正**：原候選「零售業等商品（服務）禮券…」為舊稱；現行為單一版本，無多個行業別版本 |
+| 行業別 | 健身中心定型化契約應記載及不得記載事項 | 行政院網站（PDF） | 主管機關現為運動部（2025-09-09 起） |
+
+行業別已定案為禮券與健身中心。
 
 ### 2.2 只辨識、不回答（目錄層）
 
@@ -125,13 +140,41 @@ async function generate(payload) {
 
 - 原文入庫，不經過模型改寫或摘要。
 - 每筆資料必須附上：`source_url`、`fetched_at`、`law_name`、`article_no`、`amended_at`
+  - **修訂（Phase 1）**：不再要求 `amended_at`（逐條修正日）。改以出處可追溯性為核心：來源類型、發布單位、`source_url`、`fetched_at`、開放資料 `UpdateDate`、原始檔案與其 SHA-256。法規層級的日期若來源有附帶則保留，不做額外處理。見 ADR 0006。
 - 以條為切分單位，不依 token 數切塊
+  - **修訂（Phase 1）**：行業別公告是「點」不是「條」，因此切分單位為「條」或「點」（另有前言、附表列），共用同一個 unit 結構。見 ADR 0002。
 - 保留階層 metadata：法規 → 章節 → 條
 - 解析「準用第〇條」、「依前條規定」等交叉引用，建立引用關係表，檢索時一併帶出被引用的條文
-- 版本快照基準日：（待定，例如 2026-11-01）
+- 版本快照基準日：2026-11-01（修訂（Phase 0）：已定案，見 ADR 0005；實際時間戳以開放資料 UpdateDate 與 fetched_at 為準）
 - 抓取時限制請求頻率，遵守網站使用條款
 
-### 4.3 條文資料結構（草案）
+### 4.3 條文資料結構
+
+**修訂（Phase 1）— 實際採用的結構**：所有文件共用一種 unit 記錄（條／點／前言／附表列），輸出為 `data/laws/<doc_id>.json`，另有引用關係表 `data/laws/references.json`。完整欄位說明與範例見 [data/README.md](../data/README.md)。摘要：
+
+```yaml
+- id: cpa-019                 # 全域唯一；點：gym-must-010
+  doc_id: cpa
+  law_name: 消費者保護法
+  unit: article               # article | point | preamble | table_row
+  no: "19"
+  no_label: 第 19 條
+  part: ""                    # 點的所屬部分：應記載事項 / 不得記載事項 / 前言 / 附表
+  chapter: 第 二 章 消費者權益
+  section: 第 三 節 特種交易
+  hierarchy: [{level: 章, label: ...}, {level: 節, label: ...}]
+  status: active              # active | deleted
+  text: (官方原文)
+  references: [cpa-018]       # 已解析的引用目標 id
+  external_references: []     # 範圍外法規的引用
+  unresolved_references: []   # 無法確定的引用（不猜）
+  source_url: ...
+  fetched_at: ...
+```
+
+文件層級（`doc.source`）另有：`source_type`、`publisher`、`open_data_update_date`、`raw_file`、`raw_sha256`、授權與出處聲明。
+
+<details><summary>原草案（保留對照）</summary>
 
 ```yaml
 - id: cpa-019
@@ -144,6 +187,8 @@ async function generate(payload) {
   source_url: ...
   fetched_at: ...
 ```
+
+</details>
 
 ## 5. 問診樹
 
@@ -223,8 +268,8 @@ async function generate(payload) {
 
 | 階段 | 內容 |
 |---|---|
-| Phase 0 | 核對 2.1 節候選法規的名稱與官方來源，確定版本快照日 |
-| Phase 1 | 資料抓取與解析 → 條文 JSON（含 metadata、引用關係） |
+| Phase 0 | 核對 2.1 節候選法規的名稱與官方來源，確定版本快照日（已完成） |
+| Phase 1 | 資料抓取與解析 → 條文 JSON（含 metadata、引用關係）（已完成，見 data/README.md） |
 | Phase 2 | 問診樹 JSON + 前端 + 前端檢索（降級版先能獨立運作） |
 | Phase 3 | Ollama 生成層 + Tunnel + 降級切換 |
 | Phase 4 | 目錄層 + 轉介資源表 + 非法律模板 |
@@ -233,8 +278,8 @@ async function generate(payload) {
 
 ## 10. 待決事項
 
-- [ ] 行業別最終選哪 2 個
+- [x] 行業別最終選哪 2 個（已定：禮券、健身中心）
 - [ ] 葉節點清單定案
-- [ ] 版本快照基準日
+- [x] 版本快照基準日（已定：2026-11-01）
 - [ ] Ollama 使用的生成模型與 embedding 模型
 - [ ] 是否在 Phase 3 之後加入向量混合檢索
