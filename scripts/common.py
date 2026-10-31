@@ -67,6 +67,11 @@ def download(url: str, dest: Path) -> None:
     )
 
 
+def write_text(path: Path, text: str) -> None:
+    """Write UTF-8 with LF line endings on every platform (deterministic bytes)."""
+    path.write_bytes(text.encode("utf-8"))
+
+
 def load_manifest() -> dict:
     if MANIFEST.exists():
         return json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -75,7 +80,7 @@ def load_manifest() -> dict:
 
 def save_manifest(m: dict) -> None:
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
-    MANIFEST.write_text(json.dumps(m, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    write_text(MANIFEST, json.dumps(m, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
 
 
 def rel(path: Path) -> str:

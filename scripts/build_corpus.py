@@ -29,7 +29,7 @@ import xml.etree.ElementTree as ET
 
 import pymupdf
 
-from common import LAWS, RAW, load_manifest
+from common import LAWS, RAW, load_manifest, write_text
 from refs import Corpus, cn2int, find_mentions, resolve, set_known_names
 
 SCHEMA_VERSION = 1
@@ -536,8 +536,7 @@ def main() -> None:
             doc["unit_counts_by_kind"][k] = doc["unit_counts_by_kind"].get(k, 0) + 1
         doc["deleted_unit_count"] = sum(1 for u in units if u["status"] == "deleted")
         out = {"schema_version": SCHEMA_VERSION, "doc": doc, "units": units}
-        (LAWS / f"{did}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n",
-                                           encoding="utf-8")
+        write_text(LAWS / f"{did}.json", json.dumps(out, ensure_ascii=False, indent=1) + "\n")
         index.append({"doc_id": did, "file": f"{did}.json", "law_name": doc["law_name"],
                       "unit_kind": doc["unit_kind"], "unit_count": doc["unit_count"],
                       "source_type": doc["source"]["source_type"],
@@ -553,8 +552,7 @@ def main() -> None:
         "stats": {"edges": len(edges), "mentions": len(mention_keys), "edges_by_status": stats},
         "edges": [e.to_json() for e in edges],
     }
-    (LAWS / "references.json").write_text(json.dumps(refs_out, ensure_ascii=False, indent=1) + "\n",
-                                          encoding="utf-8")
+    write_text(LAWS / "references.json", json.dumps(refs_out, ensure_ascii=False, indent=1) + "\n")
 
     moj_dump = manifest["moj_dump_law"]
     top = {
@@ -566,8 +564,7 @@ def main() -> None:
         "documents": index,
         "references_file": "references.json",
     }
-    (LAWS / "manifest.json").write_text(json.dumps(top, ensure_ascii=False, indent=1) + "\n",
-                                        encoding="utf-8")
+    write_text(LAWS / "manifest.json", json.dumps(top, ensure_ascii=False, indent=1) + "\n")
     for row in index:
         print(f"{row['doc_id']:8} {row['unit_count']:3} units  {row['law_name']}")
     print("reference edges:", len(edges), stats)

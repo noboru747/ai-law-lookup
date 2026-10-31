@@ -18,7 +18,7 @@ import json
 import sys
 import zipfile
 
-from common import CACHE, RAW, download, load_manifest, now_iso, rel, save_manifest, sha256_file
+from common import CACHE, RAW, download, write_text, load_manifest, now_iso, rel, save_manifest, sha256_file
 
 DUMPS = {
     "law": ("https://law.moj.gov.tw/api/ch/law/json", "ChLaw.json"),
@@ -70,7 +70,7 @@ def main(force: bool = False) -> None:
         if law["LawAbandonNote"].strip():
             sys.exit(f"{pcode}: law is marked abandoned: {law['LawAbandonNote']!r}")
         out = RAW / "moj" / f"{pcode}.json"
-        out.write_text(json.dumps(law, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        write_text(out, json.dumps(law, ensure_ascii=False, indent=1) + "\n")
         manifest[f"moj_law_{pcode}"] = {
             "pcode": pcode,
             "law_name": name,
@@ -84,8 +84,8 @@ def main(force: bool = False) -> None:
     # such as 民法第二百五十九條 in the reference parser.
     names = sorted({x["LawName"] for x in loaded["law"]["Laws"]})
     out = RAW / "moj" / "law_names.json"
-    out.write_text(json.dumps({"source": DUMPS["law"][0], "update_date": loaded["law"]["UpdateDate"],
-                               "names": names}, ensure_ascii=False, indent=0) + "\n", encoding="utf-8")
+    write_text(out, json.dumps({"source": DUMPS["law"][0], "update_date": loaded["law"]["UpdateDate"],
+                                "names": names}, ensure_ascii=False, indent=0) + "\n")
     manifest["moj_law_names"] = {"raw_file": rel(out), "sha256": sha256_file(out), "count": len(names)}
     save_manifest(manifest)
 

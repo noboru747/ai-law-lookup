@@ -48,7 +48,7 @@
     "law_name": "消費者保護法",
     "pcode": "J0170001",
     "raw_file": "data/raw/moj/J0170001.json",
-    "sha256": "116f16d5697cfd115c22e8936d6b75a1f7dd1442285f4daf47368429e20fb0af",
+    "sha256": "cc29a3addb91aa4439ef4bcb19e421974a75317dea96ee830c2e1056c2458e30",
     "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170001"
   },
   "moj_law_J0170002": {
@@ -56,7 +56,7 @@
     "law_name": "消費者保護法施行細則",
     "pcode": "J0170002",
     "raw_file": "data/raw/moj/J0170002.json",
-    "sha256": "57522996f1bd2fcac372b21660e851a2d759f1ce587b62244d67260b9b79e0cc",
+    "sha256": "65358fcd8ff0445db3840b86d5a943aa9d9362e4411361610d1a80077d2c3fa1",
     "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170002"
   },
   "moj_law_J0170008": {
@@ -64,7 +64,7 @@
     "law_name": "消費爭議調解辦法",
     "pcode": "J0170008",
     "raw_file": "data/raw/moj/J0170008.json",
-    "sha256": "4bd6bba4ec4b099f90c1c11227764ef08cfc1e8f30d3597e5c6af5deec5206e2",
+    "sha256": "9a9429ae60f862376d3009106996956f7925d1f49a43e991d097c243ff310263",
     "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170008"
   },
   "moj_law_J0170012": {
@@ -72,12 +72,12 @@
     "law_name": "通訊交易解除權合理例外情事適用準則",
     "pcode": "J0170012",
     "raw_file": "data/raw/moj/J0170012.json",
-    "sha256": "b8fb444da5a5d189de7d0913964949396f1de3aaa4501bbda3c78610f194bb7f",
+    "sha256": "2020e9b54295dea1a78bc010ca5fecf215cff32dacacf69f591bb232d637d775",
     "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170012"
   },
   "moj_law_names": {
     "count": 1351,
     "raw_file": "data/raw/moj/law_names.json",
-    "sha256": "3b3846e97ecc7b809e63253ef05953fbd6ec5aa20a3956c03ece486bad3de9eb"
+    "sha256": "fb6e2d9ff093c63114445b589c011663ed923f63d08c131de81b59a263c259b1"
   }
 }

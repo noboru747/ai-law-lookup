@@ -22,7 +22,7 @@
    "open_data_update_date": "2026/10/22 上午 12:00:00",
    "fetched_at": "2026-10-31T22:27:20+08:00",
    "raw_file": "data/raw/moj/J0170001.json",
-   "raw_sha256": "116f16d5697cfd115c22e8936d6b75a1f7dd1442285f4daf47368429e20fb0af",
+   "raw_sha256": "cc29a3addb91aa4439ef4bcb19e421974a75317dea96ee830c2e1056c2458e30",
    "dump_sha256": "f87f03f45301f6aa70f1c02c9856131cc6fa33d2d5434e962d67b3bfbacf7888",
    "license": "政府資料開放授權條款-第1版",
    "attribution": "資料來源：全國法規資料庫（法務部）"
