@@ -1,0 +1,3 @@
+# Keep byte-exact: raw sources are hash-verified, built JSON is deterministic
+data/raw/** -text
+data/laws/** -text
