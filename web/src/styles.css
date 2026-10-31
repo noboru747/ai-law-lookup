@@ -123,3 +123,28 @@ mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2
 @media (min-width: 640px) {
   .choices { grid-template-columns: 1fr 1fr; }
 }
+
+/* ---- Phase 3: generated answer, routing, query trace ---- */
+.mode-checking { background: var(--card); }
+.answer { border-left: 4px solid var(--accent); }
+.answer-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.answer-head h2 { margin: 0; }
+.badge-ai { background: var(--accent-bg); border-color: var(--accent); }
+.answer-text p { margin: 8px 0; }
+.caveats { margin: 12px 0; padding: 10px 12px; background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 8px; }
+.caveats ul { margin: 6px 0 0; padding-left: 20px; }
+.citations { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 10px; }
+.cite { font: inherit; font-size: 0.85rem; padding: 4px 10px; min-height: 32px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent-bg); color: var(--fg); cursor: pointer; }
+.cite:hover, .cite:focus-visible { outline: 2px solid var(--accent); }
+.answer-failed { border-left-color: var(--warn-line); }
+.trace { margin: 12px 0; font-size: 0.9rem; }
+.trace summary { cursor: pointer; color: var(--accent); }
+.trace dl { margin: 8px 0 0; }
+.trace dt { font-weight: 600; margin-top: 8px; }
+.trace dd { margin: 2px 0 0; overflow-wrap: anywhere; }
+.trace ul { margin: 0; padding-left: 20px; }
+.routed .field.inline { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 8px 0 0; }
+.routed select { max-width: 100%; }
+@keyframes flash-card { from { box-shadow: 0 0 0 4px var(--accent); } to { box-shadow: 0 0 0 0 transparent; } }
+.card.flash { animation: flash-card 1.6s ease-out; }
+@media (prefers-reduced-motion: reduce) { .card.flash { animation: none; outline: 3px solid var(--accent); } }

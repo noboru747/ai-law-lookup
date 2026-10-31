@@ -4,6 +4,10 @@ import { createEngine } from './lib/engine.js';
 import { tree } from './lib/tree.js';
 import { runLeaf, runFreeform, activeValues } from './lib/retrieve.js';
 import { checkHealth, MODES } from './lib/generate.js';
+import { assistFreeform, routableLeaf, SKIPPED } from './lib/assist.js';
+import { planQuery } from './lib/glossary.js';
+import { citableIds, HealthContext, useGeneration, useHealth } from './lib/useGeneration.js';
+import { AnswerPanel, QueryTrace, RoutedBanner } from './components/Answer.jsx';
 import { useRoute, hrefNode, hrefResult } from './lib/route.js';
 import { ArticleList, ExternalRefs, Facts, Notes, RefList, Referral, Steps } from './components/Results.jsx';
 
@@ -17,7 +21,7 @@ function Header({ health }) {
         <a className="brand" href="#/">
           消費糾紛法規查詢助理
         </a>
-        <span className={`mode mode-${health.mode}`} role="status" data-testid="mode">
+        <span className={`mode mode-${health.mode}`} role="status" data-testid="mode" title={health.model ? `模型：${health.model}` : undefined}>
           {health.label}
         </span>
       </div>
@@ -188,20 +192,15 @@ function ScopeLine({ leaf }) {
   return <p className="muted scope">檢索範圍（由問診結果決定）：{names.join('、')}</p>;
 }
 
-function QueryResult({ leaf, params }) {
-  const res = useMemo(() => runLeaf(engine, leaf, params), [leaf, params]);
+/** Everything below the facts for one leaf result (shared by the slot flow and the routed free-text flow). */
+function LeafBody({ leaf, res }) {
   const pinned = res.items.filter((i) => i.source !== 'bm25');
   const rest = res.items.filter((i) => i.source === 'bm25');
   const isProcess = leaf.kind === 'process';
   const stepIds = new Set(res.steps.flatMap((s) => s.unitIds));
   const nonStepPinned = pinned.filter((i) => !stepIds.has(i.unit.id));
   return (
-    <main>
-      <Crumbs id={leaf.id} />
-      <h1>{leaf.label}</h1>
-      <p className="lead">{leaf.intro}</p>
-      <Facts facts={res.facts} units={engine.byId} />
-      <Notes notes={res.notes} />
+    <>
       {leaf.caveat && <p className="caveat">{leaf.caveat}</p>}
       <ScopeLine leaf={leaf} />
       {isProcess ? (
@@ -215,6 +214,26 @@ function QueryResult({ leaf, params }) {
       <ArticleList items={rest.filter((i) => !stepIds.has(i.unit.id))} engine={engine} heading="其他相關條文（關鍵字檢索）" />
       <RefList refs={res.refs} engine={engine} />
       <ExternalRefs external={res.external} units={engine.byId} />
+    </>
+  );
+}
+
+function QueryResult({ leaf, params }) {
+  const res = useMemo(() => runLeaf(engine, leaf, params), [leaf, params]);
+  const request = useMemo(
+    () => ({ leafId: leaf.id, slots: res.vals, query: null, articleIds: citableIds(res.items) }),
+    [leaf, res],
+  );
+  const gen = useGeneration(request);
+  return (
+    <main>
+      <Crumbs id={leaf.id} />
+      <h1>{leaf.label}</h1>
+      <p className="lead">{leaf.intro}</p>
+      <AnswerPanel gen={gen} units={engine.byId} />
+      <Facts facts={res.facts} units={engine.byId} />
+      <Notes notes={res.notes} />
+      <LeafBody leaf={leaf} res={res} />
       <Referral templates={tree.templates} />
       <p>
         <a href={hrefNode(leaf.id)}>修改回答</a>　<a href="#/">回到首頁</a>
@@ -223,27 +242,33 @@ function QueryResult({ leaf, params }) {
   );
 }
 
-function OutOfScope({ leaf }) {
+function OutOfScopePanel({ leaf }) {
   const t = tree.templates.out_of_scope;
+  return (
+    <section className="panel oos" aria-label="範圍外">
+      <h2>{t.heading}</h2>
+      <p>{t.body}</p>
+      <h3>{t.related_label}</h3>
+      <ul>
+        {leaf.related_laws.map((l) => (
+          <li key={l.name}>
+            {l.name}
+            {l.topic ? `（${l.topic}）` : ''}
+            <span className="badge badge-ext">不在收錄範圍</span>
+          </li>
+        ))}
+      </ul>
+      <p>{leaf.reason}</p>
+    </section>
+  );
+}
+
+function OutOfScope({ leaf }) {
   return (
     <main>
       <Crumbs id={leaf.id} />
       <h1>{leaf.label}</h1>
-      <section className="panel oos" aria-label="範圍外">
-        <h2>{t.heading}</h2>
-        <p>{t.body}</p>
-        <h3>{t.related_label}</h3>
-        <ul>
-          {leaf.related_laws.map((l) => (
-            <li key={l.name}>
-              {l.name}
-              {l.topic ? `（${l.topic}）` : ''}
-              <span className="badge badge-ext">不在收錄範圍</span>
-            </li>
-          ))}
-        </ul>
-        <p>{leaf.reason}</p>
-      </section>
+      <OutOfScopePanel leaf={leaf} />
       <Referral templates={tree.templates} />
       <p>
         <a href="#/">回到首頁</a>
@@ -252,9 +277,57 @@ function OutOfScope({ leaf }) {
   );
 }
 
+const ROUTABLE = tree.leaves().filter((l) => ['query', 'process', 'out_of_scope'].includes(l.kind));
+
 function FreeformResult({ leaf, params }) {
   const tpl = tree.templates.freeform;
-  const res = useMemo(() => runFreeform(engine, params.q ?? ''), [params.q]);
+  const health = useHealth();
+  const text = params.q ?? '';
+  const full = health.mode === 'full';
+
+  // Step 1 (full mode only): ask the service where this belongs and for statute keywords.
+  const [fetched, setFetched] = useState({ key: null });
+  useEffect(() => {
+    if (!full) return undefined;
+    let alive = true;
+    assistFreeform(text, { tree }).then((a) => alive && setFetched({ key: text, ...a }));
+    return () => {
+      alive = false;
+    };
+  }, [full, text]);
+  const assist = !full ? SKIPPED : fetched.key === text ? fetched : null; // null = still waiting
+  const waiting = health.mode === 'checking' || assist === null;
+
+  // The user can override the router; `undefined` means "follow the router".
+  const [override, setOverride] = useState(undefined);
+  const autoId = assist?.route.status === 'high' ? assist.route.leafId : null;
+  const routedId = override !== undefined ? override : autoId;
+  const routedLeaf = routableLeaf(tree, routedId);
+
+  // Step 2: deterministic retrieval over the plan (glossary + rewrite terms).
+  const plan = useMemo(() => planQuery(text, { rewriteTerms: assist?.rewrite.terms ?? [] }), [text, assist]);
+  const searchable = routedLeaf?.kind !== 'out_of_scope';
+  const scoped = routedLeaf && searchable ? routedLeaf : null;
+  const res = useMemo(() => {
+    if (waiting || !searchable) return null;
+    return scoped ? runLeaf(engine, scoped, {}, { extraQuery: plan.query }) : runFreeform(engine, text, { query: plan.query });
+  }, [waiting, searchable, scoped, plan, text]);
+
+  // Step 3 (full mode): generate from the articles that are actually on screen.
+  const request = useMemo(
+    () => (res ? { leafId: scoped ? scoped.id : leaf.id, slots: {}, query: text, articleIds: citableIds(res.items) } : null),
+    [res, scoped, leaf, text],
+  );
+  const gen = useGeneration(request);
+
+  const scopeText = scoped ? `${scoped.label}（由問診節點決定的範圍）` : '全部收錄條文';
+  const routePath = routedLeaf
+    ? tree
+        .path(routedLeaf.id)
+        .filter((n) => n.id !== 'root')
+        .map((n) => n.label)
+        .join(' › ')
+    : '';
   return (
     <main>
       <Crumbs id={leaf.id} />
@@ -264,15 +337,53 @@ function FreeformResult({ leaf, params }) {
         <div>{tpl.detail}</div>
       </div>
       <p className="lead">
-        你輸入的內容：<q>{params.q}</q>
+        你輸入的內容：<q>{text}</q>
       </p>
-      {res.items.length === 0 ? (
-        <p className="panel">{tpl.empty}</p>
+      {waiting ? (
+        <p className="panel" role="status" data-testid="freeform-waiting">
+          {health.mode === 'checking'
+            ? '正在檢查生成服務…'
+            : '正在判斷問題類型並整理檢索詞…（服務無回應時最多等待約 15 秒，之後會自動改用固定規則檢索）'}
+        </p>
       ) : (
-        <ArticleList items={res.items} engine={engine} heading="關鍵字檢索結果（全部收錄條文）" />
+        <>
+          {full && (
+            <RoutedBanner
+              route={assist.route}
+              leaf={routedLeaf}
+              path={routePath}
+              leaves={ROUTABLE}
+              value={routedId ?? ''}
+              onChange={(v) => setOverride(v || null)}
+            />
+          )}
+          <QueryTrace plan={plan} assist={assist} scope={scopeText} />
+          {routedLeaf && !searchable && <OutOfScopePanel leaf={routedLeaf} />}
+          {res && (
+            <>
+              <AnswerPanel gen={gen} units={engine.byId} />
+              {scoped ? (
+                <>
+                  <p className="muted">
+                    這是依導向節點檢索的結果，尚未經問診；<a href={hrefNode(scoped.id)}>填寫問診</a>可讓條文更貼合你的情況。
+                  </p>
+                  <LeafBody leaf={scoped} res={res} />
+                </>
+              ) : (
+                <>
+                  {res.items.length === 0 ? (
+                    <p className="panel">{tpl.empty}</p>
+                  ) : (
+                    <ArticleList items={res.items} engine={engine} heading="關鍵字檢索結果（全部收錄條文）" />
+                  )}
+                  <RefList refs={res.refs} engine={engine} />
+                  <ExternalRefs external={res.external} units={engine.byId} />
+                </>
+              )}
+            </>
+          )}
+        </>
       )}
-      <RefList refs={res.refs} engine={engine} />
-      <ExternalRefs external={res.external} units={engine.byId} />
       <Referral templates={tree.templates} />
       <p>
         <a href={hrefNode(leaf.id)}>重新輸入</a>　<a href="#/">回到首頁</a>
@@ -305,7 +416,7 @@ function Screen({ route }) {
 
 export default function App() {
   const route = useRoute();
-  const [health, setHealth] = useState({ ...MODES.degraded, reason: 'checking' });
+  const [health, setHealth] = useState({ ...MODES.checking, reason: 'checking' });
   useEffect(() => {
     let alive = true;
     checkHealth().then((h) => alive && setHealth(h));
@@ -314,10 +425,12 @@ export default function App() {
     };
   }, []);
   return (
-    <div className="app">
-      <Header health={health} />
-      <Screen key={`${route.name}:${route.id}:${JSON.stringify(route.params)}`} route={route} />
-      <Footer />
-    </div>
+    <HealthContext.Provider value={health}>
+      <div className="app">
+        <Header health={health} />
+        <Screen key={`${route.name}:${route.id}:${JSON.stringify(route.params)}`} route={route} />
+        <Footer />
+      </div>
+    </HealthContext.Provider>
   );
 }

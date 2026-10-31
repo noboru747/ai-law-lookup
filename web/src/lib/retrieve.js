@@ -62,7 +62,7 @@ export function buildFacts(leaf, vals, today = new Date()) {
 /**
  * Item = { unit, source: 'rule'|'seed'|'step'|'bm25', marks: string[], score?: number }
  */
-export function runLeaf(engine, leaf, values, { today = new Date() } = {}) {
+export function runLeaf(engine, leaf, values, { today = new Date(), extraQuery = '' } = {}) {
   const vals = activeValues(leaf, values);
   const facts = buildFacts(leaf, vals, today);
   const fired = (leaf.rules ?? []).filter((r) => ruleMatches(r, vals));
@@ -95,7 +95,7 @@ export function runLeaf(engine, leaf, values, { today = new Date() } = {}) {
   });
 
   // 3. BM25 inside the scope
-  const query = [leaf.query, ...fired.map((r) => r.add_query)].filter(Boolean).join(' ');
+  const query = [leaf.query, ...fired.map((r) => r.add_query), extraQuery].filter(Boolean).join(' ');
   const hits = engine.search(query, { scope: leaf.law_scope, limit: 40 });
   let added = 0;
   for (const h of hits) {
@@ -115,11 +115,15 @@ export function runLeaf(engine, leaf, values, { today = new Date() } = {}) {
   return { facts, notes, items: [...items.values()], steps, refs, external, query, vals };
 }
 
-/** Free-text search over the whole corpus (the "其他" branch). No slots, no pins. */
-export function runFreeform(engine, text, { limit = 10 } = {}) {
-  const hits = text.trim() ? engine.search(text, { limit }) : [];
+/**
+ * Free-text search over the whole corpus (the "其他" branch). No slots, no pins.
+ * `query` is what BM25 actually receives (user text + glossary + rewrite terms, see planQuery);
+ * it defaults to the raw text.
+ */
+export function runFreeform(engine, text, { limit = 10, query = text } = {}) {
+  const hits = text.trim() && query.trim() ? engine.search(query, { limit }) : [];
   const items = hits.map((h) => ({ unit: h.unit, source: 'bm25', marks: [], score: h.score }));
   const shown = new Set(items.map((i) => i.unit.id));
   const { refs, external } = engine.expand([...shown], { exclude: shown });
-  return { items, refs, external, query: text };
+  return { items, refs, external, query };
 }

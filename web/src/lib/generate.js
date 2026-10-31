@@ -1,47 +1,117 @@
-// Generation layer client (spec 3.2). Phase 2 has no backend: API_URL is empty,
-// so every call degrades without touching the network. Phase 3 only has to set
-// VITE_API_URL; the degradation rules below are already final.
+// Client for the generation service (spec 3.2, API contract fixed with the backend):
+//
+//   GET  /health    -> 200 {"status":"ok","model":"..."}        (503 when unavailable)
+//   POST /rewrite   {query, leaf_id|null}              -> {terms:[...]}
+//   POST /route     {text}                             -> {leaf_id|null, confidence:"high"|"low"}
+//   POST /generate  {leaf_id, slots, query|null, article_ids:[...]} -> {answer, citations, caveats}
+//
+// Rules shared by every call: any non-2xx, network error, timeout (15 s) or malformed body means
+// "that feature is degraded". Nothing here ever throws, and nothing else on the page depends on it.
 
 export const API_URL = (import.meta.env?.VITE_API_URL ?? '').trim();
+export const TIMEOUT_MS = 15000;
+/** Cap on article_ids sent to /generate (the server re-reads the text of every one). */
+export const MAX_ARTICLES = 10;
 
 export const MODES = {
+  checking: { mode: 'checking', label: '檢查生成服務中…' },
   full: { mode: 'full', label: '完整版（已連線生成服務）' },
   degraded: { mode: 'degraded', label: '降級版（未連線生成服務）' },
 };
 
-/**
- * Health check on page load. Any non-2xx, network error or timeout => degraded.
- * @param {{apiUrl?: string, fetchImpl?: typeof fetch, timeoutMs?: number}} [o]
- */
-export async function checkHealth({ apiUrl = API_URL, fetchImpl = globalThis.fetch, timeoutMs = 3000 } = {}) {
-  if (!apiUrl) return { ...MODES.degraded, reason: 'not_configured' };
-  try {
-    const res = await fetchImpl(`${apiUrl.replace(/\/$/, '')}/health`, {
-      signal: AbortSignal.timeout(timeoutMs),
-    });
-    if (!res.ok) throw new Error(String(res.status)); // fetch does not reject on HTTP errors
-    return { ...MODES.full, reason: 'ok' };
-  } catch {
-    return { ...MODES.degraded, reason: 'unreachable' };
-  }
+const base = (apiUrl) => apiUrl.replace(/\/+$/, '');
+
+/** Why a call failed, in words the UI can show. */
+function describeFailure(err) {
+  if (err?.name === 'TimeoutError' || err?.name === 'AbortError') return '逾時';
+  if (err?.status) return `服務回應 ${err.status}`;
+  if (err?.badBody) return '服務回應格式不符';
+  return '無法連線';
 }
 
 /**
- * Ask the generation service to write an answer from retrieved articles + user facts.
- * Returns { mode: 'full', data } or { mode: 'degraded' } - never throws.
+ * @returns {Promise<{ok: true, data: any} | {ok: false, reason: string}>}
  */
-export async function generate(payload, { apiUrl = API_URL, fetchImpl = globalThis.fetch, timeoutMs = 15000 } = {}) {
-  if (!apiUrl) return { mode: 'degraded' };
+async function call(path, { method = 'GET', body, apiUrl = API_URL, fetchImpl = globalThis.fetch, timeoutMs = TIMEOUT_MS } = {}) {
+  if (!apiUrl) return { ok: false, reason: '未設定生成服務' };
   try {
-    const res = await fetchImpl(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+    const res = await fetchImpl(`${base(apiUrl)}${path}`, {
+      method,
+      headers: body === undefined ? undefined : { 'Content-Type': 'application/json' },
+      body: body === undefined ? undefined : JSON.stringify(body),
       signal: AbortSignal.timeout(timeoutMs),
     });
-    if (!res.ok) throw new Error(String(res.status));
-    return { mode: 'full', data: await res.json() };
-  } catch {
-    return { mode: 'degraded' };
+    if (!res.ok) throw Object.assign(new Error(String(res.status)), { status: res.status }); // fetch does not reject on HTTP errors
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      throw Object.assign(new Error('bad json'), { badBody: true });
+    }
+    return { ok: true, data };
+  } catch (err) {
+    return { ok: false, reason: describeFailure(err) };
   }
+}
+
+/** Health check on page load. 2xx with {status:"ok"} => full; anything else => degraded. */
+export async function checkHealth({ apiUrl = API_URL, fetchImpl, timeoutMs = 3000 } = {}) {
+  if (!apiUrl) return { ...MODES.degraded, reason: 'not_configured' };
+  const r = await call('/health', { apiUrl, fetchImpl, timeoutMs });
+  if (r.ok && r.data?.status === 'ok') return { ...MODES.full, reason: 'ok', model: typeof r.data.model === 'string' ? r.data.model : null };
+  return { ...MODES.degraded, reason: r.ok ? 'not_ok' : 'unreachable' };
+}
+
+/** Lay wording -> statute keywords. { ok:true, terms } | { ok:false, reason } */
+export async function rewrite(query, leafId, opts = {}) {
+  const r = await call('/rewrite', { ...opts, method: 'POST', body: { query, leaf_id: leafId ?? null } });
+  if (!r.ok) return r;
+  if (!Array.isArray(r.data?.terms)) return { ok: false, reason: '服務回應格式不符' };
+  return { ok: true, terms: r.data.terms.filter((t) => typeof t === 'string') };
+}
+
+/** Free text -> leaf node id. { ok:true, leafId|null, confidence } | { ok:false, reason } */
+export async function route(text, opts = {}) {
+  const r = await call('/route', { ...opts, method: 'POST', body: { text } });
+  if (!r.ok) return r;
+  const { leaf_id: leafId, confidence } = r.data ?? {};
+  if ((leafId !== null && typeof leafId !== 'string') || (confidence !== 'high' && confidence !== 'low')) {
+    return { ok: false, reason: '服務回應格式不符' };
+  }
+  return { ok: true, leafId, confidence };
+}
+
+/**
+ * Check a /generate response against what we actually sent.
+ * The answer is shown only if every citation is one of the article ids of THIS request, so a
+ * model that invents or recalls an article we did not give it can never put it on screen.
+ * Citations may be id strings, or objects carrying the id as `article_id` / `id`.
+ * @returns {{ok: true, answer: string, citations: string[], caveats: string[]} | {ok: false, reason: string}}
+ */
+export function validateGeneration(data, sentIds) {
+  if (!data || typeof data.answer !== 'string' || !data.answer.trim()) return { ok: false, reason: '服務回應格式不符' };
+  if (!Array.isArray(data.citations)) return { ok: false, reason: '服務回應格式不符' };
+  if (data.caveats !== undefined && !Array.isArray(data.caveats)) return { ok: false, reason: '服務回應格式不符' };
+  const allowed = new Set(sentIds);
+  const citations = [];
+  for (const c of data.citations) {
+    const id = typeof c === 'string' ? c : c && typeof c === 'object' ? (c.article_id ?? c.id) : null;
+    if (typeof id !== 'string' || !allowed.has(id)) return { ok: false, reason: '回答引用了未提供的條文，已捨棄' };
+    if (!citations.includes(id)) citations.push(id);
+  }
+  const caveats = (data.caveats ?? []).filter((c) => typeof c === 'string' && c.trim());
+  return { ok: true, answer: data.answer.trim(), citations, caveats };
+}
+
+/**
+ * Ask the service to write an answer from articles it reads itself (we send ids only).
+ * Never calls the network when there is nothing to cite.
+ * @returns {Promise<{ok: true, answer, citations, caveats} | {ok: false, reason: string}>}
+ */
+export async function generate({ leafId, slots = {}, query = null, articleIds }, opts = {}) {
+  const ids = [...new Set(articleIds ?? [])].slice(0, MAX_ARTICLES);
+  if (ids.length === 0) return { ok: false, reason: '沒有可供整理的條文' };
+  const r = await call('/generate', { ...opts, method: 'POST', body: { leaf_id: leafId, slots, query, article_ids: ids } });
+  if (!r.ok) return r;
+  return validateGeneration(r.data, ids);
 }
