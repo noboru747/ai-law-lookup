@@ -37,6 +37,6 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Large raw downloads (open-data zips, PDFs) are re-fetchable; keep only .gitkeep
-data/raw/*
-!data/raw/.gitkeep
+# Large re-downloadable open-data dumps (the per-law raw excerpts and the
+# Executive Yuan source files ARE committed, see data/README.md)
+data/raw/_cache/

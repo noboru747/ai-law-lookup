@@ -1,0 +1,2 @@
+# Only third-party dependency: PyMuPDF (reads the fitness-center PDF).
+pymupdf>=1.24

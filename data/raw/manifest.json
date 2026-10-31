@@ -1,0 +1,83 @@
+{
+  "ey_gift_odt": {
+    "bytes": 32223,
+    "fetched_at": "2026-10-31T22:27:30+08:00",
+    "raw_file": "data/raw/ey/gift.odt",
+    "sha256": "6ae3b2081ceb8c4cf2956c559a26a89254f9780094ee6b282028fb7b07ee98ed",
+    "source_url": "https://www.ey.gov.tw/File/D9A65CE181F97ACB?A=C"
+  },
+  "ey_gift_page": {
+    "bytes": 105445,
+    "fetched_at": "2026-10-31T22:27:27+08:00",
+    "raw_file": "data/raw/ey/gift.html",
+    "sha256": "b84bb7006f81c4657cec42455d39a19c1907c2798d963c954d00bf7276952097",
+    "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/5486b053-67e1-47e8-90e4-a9a59529dc87"
+  },
+  "ey_gym_page": {
+    "bytes": 103749,
+    "fetched_at": "2026-10-31T22:27:33+08:00",
+    "raw_file": "data/raw/ey/gym.html",
+    "sha256": "3c1b8698b99938704a3281a21bc3848afa11c72e25e9dff6baf875ba704d1c24",
+    "source_url": "https://www.ey.gov.tw/Page/DFB720D019CCCB0A/a8a9e88e-6f7a-49bc-a4d7-d990a1d9840d"
+  },
+  "ey_gym_pdf": {
+    "bytes": 348295,
+    "fetched_at": "2026-10-31T22:27:36+08:00",
+    "raw_file": "data/raw/ey/gym.pdf",
+    "sha256": "23993b5925bddb03bb550f27550b563cdff8240c97e64eab20f37bdcd86cb49a",
+    "source_url": "https://www.ey.gov.tw/File/11A27ED8536A6030?A=C"
+  },
+  "moj_dump_law": {
+    "bytes": 6135777,
+    "cache_file": "data/raw/_cache/ChLaw.zip",
+    "fetched_at": "2026-10-31T22:27:20+08:00",
+    "sha256": "f87f03f45301f6aa70f1c02c9856131cc6fa33d2d5434e962d67b3bfbacf7888",
+    "update_date": "2026/10/22 上午 12:00:00",
+    "url": "https://law.moj.gov.tw/api/ch/law/json"
+  },
+  "moj_dump_order": {
+    "bytes": 25791396,
+    "cache_file": "data/raw/_cache/ChOrder.zip",
+    "fetched_at": "2026-10-31T22:27:25+08:00",
+    "sha256": "0cf8b584ad6e9ed56b8d027d5696aef7dd629f14b4ed192ebfb717f6fe290eea",
+    "update_date": "2026/10/22 上午 12:00:00",
+    "url": "https://law.moj.gov.tw/api/ch/order/json"
+  },
+  "moj_law_J0170001": {
+    "dump": "moj_dump_law",
+    "law_name": "消費者保護法",
+    "pcode": "J0170001",
+    "raw_file": "data/raw/moj/J0170001.json",
+    "sha256": "116f16d5697cfd115c22e8936d6b75a1f7dd1442285f4daf47368429e20fb0af",
+    "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170001"
+  },
+  "moj_law_J0170002": {
+    "dump": "moj_dump_order",
+    "law_name": "消費者保護法施行細則",
+    "pcode": "J0170002",
+    "raw_file": "data/raw/moj/J0170002.json",
+    "sha256": "57522996f1bd2fcac372b21660e851a2d759f1ce587b62244d67260b9b79e0cc",
+    "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170002"
+  },
+  "moj_law_J0170008": {
+    "dump": "moj_dump_order",
+    "law_name": "消費爭議調解辦法",
+    "pcode": "J0170008",
+    "raw_file": "data/raw/moj/J0170008.json",
+    "sha256": "4bd6bba4ec4b099f90c1c11227764ef08cfc1e8f30d3597e5c6af5deec5206e2",
+    "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170008"
+  },
+  "moj_law_J0170012": {
+    "dump": "moj_dump_order",
+    "law_name": "通訊交易解除權合理例外情事適用準則",
+    "pcode": "J0170012",
+    "raw_file": "data/raw/moj/J0170012.json",
+    "sha256": "b8fb444da5a5d189de7d0913964949396f1de3aaa4501bbda3c78610f194bb7f",
+    "source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0170012"
+  },
+  "moj_law_names": {
+    "count": 1351,
+    "raw_file": "data/raw/moj/law_names.json",
+    "sha256": "3b3846e97ecc7b809e63253ef05953fbd6ec5aa20a3956c03ece486bad3de9eb"
+  }
+}
