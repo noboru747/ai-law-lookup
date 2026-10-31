@@ -1,7 +1,7 @@
 import { describe, expect, test, vi } from 'vitest';
 import { checkHealth, generate, rewrite, route, validateGeneration, MAX_ARTICLES } from '../src/lib/generate.js';
 import { assistFreeform, routableLeaf } from '../src/lib/assist.js';
-import { citableIds } from '../src/lib/useGeneration.js';
+import { citableIds, freeformRequest } from '../src/lib/useGeneration.js';
 import { runFreeform, runLeaf } from '../src/lib/retrieve.js';
 import { planQuery } from '../src/lib/glossary.js';
 import { engine, tree } from './helpers.js';
@@ -220,5 +220,26 @@ describe('routed free text uses the leaf scope without slot rules', () => {
     const live = engine.units.filter((u) => u.status !== 'deleted').slice(0, 2);
     const items = [{ unit: live[0] }, { unit: del }, { unit: live[1] }, { unit: live[0] }];
     expect(citableIds(items)).toEqual([live[0].id, live[1].id]);
+  });
+});
+
+describe('un-routed free text never calls /generate', () => {
+  const items = [{ unit: engine.byId.get('cpa-019') }];
+  test('no routed leaf, or an out-of-scope leaf: no request is built, so zero network calls', async () => {
+    const { f, calls } = backend();
+    for (const routedLeaf of [null, undefined, tree.node('oos.fraud')]) {
+      const req = freeformRequest({ routedLeaf, text: '網購鑑賞期', items });
+      expect(req).toBeNull();
+      if (req) await generate(req, { apiUrl: U, fetchImpl: f });
+    }
+    expect(calls.filter((c) => c.path === '/generate')).toHaveLength(0);
+  });
+  test('routed to an answerable leaf: generates with that leaf id (never "other")', async () => {
+    const { f, calls } = backend();
+    const req = freeformRequest({ routedLeaf: tree.node('online.return'), text: '網購鑑賞期', items });
+    expect(req).toMatchObject({ leafId: 'online.return', slots: {}, query: '網購鑑賞期', articleIds: ['cpa-019'] });
+    await generate(req, { apiUrl: U, fetchImpl: f });
+    expect(calls.filter((c) => c.path === '/generate')).toHaveLength(1);
+    expect(calls[0].body.leaf_id).not.toBe('other');
   });
 });

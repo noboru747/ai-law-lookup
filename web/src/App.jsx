@@ -6,7 +6,7 @@ import { runLeaf, runFreeform, activeValues } from './lib/retrieve.js';
 import { checkHealth, MODES } from './lib/generate.js';
 import { assistFreeform, routableLeaf, SKIPPED } from './lib/assist.js';
 import { planQuery } from './lib/glossary.js';
-import { citableIds, HealthContext, useGeneration, useHealth } from './lib/useGeneration.js';
+import { citableIds, freeformRequest, HealthContext, useGeneration, useHealth } from './lib/useGeneration.js';
 import { AnswerPanel, QueryTrace, RoutedBanner } from './components/Answer.jsx';
 import { useRoute, hrefNode, hrefResult } from './lib/route.js';
 import { ArticleList, ExternalRefs, Facts, Notes, RefList, Referral, Steps } from './components/Results.jsx';
@@ -314,10 +314,7 @@ function FreeformResult({ leaf, params }) {
   }, [waiting, searchable, scoped, plan, text]);
 
   // Step 3 (full mode): generate from the articles that are actually on screen.
-  const request = useMemo(
-    () => (res ? { leafId: scoped ? scoped.id : leaf.id, slots: {}, query: text, articleIds: citableIds(res.items) } : null),
-    [res, scoped, leaf, text],
-  );
+  const request = useMemo(() => (res ? freeformRequest({ routedLeaf: scoped, text, items: res.items }) : null), [res, scoped, text]);
   const gen = useGeneration(request);
 
   const scopeText = scoped ? `${scoped.label}（由問診節點決定的範圍）` : '全部收錄條文';
@@ -362,6 +359,11 @@ function FreeformResult({ leaf, params }) {
           {res && (
             <>
               <AnswerPanel gen={gen} units={engine.byId} />
+              {full && !scoped && (
+                <p className="panel" data-testid="no-ai-unrouted">
+                  未經問診，不產生 AI 整理，結果僅供參考。（範圍不明時不生成，是刻意的設計；可在上方選擇問題類型，或從首頁依情境進入。）
+                </p>
+              )}
               {scoped ? (
                 <>
                   <p className="muted">

@@ -17,7 +17,7 @@
 | 0 | 核對候選法規的名稱與官方來源，確定版本快照日 | 完成 |
 | 1 | 資料抓取與解析 → 條文 JSON | 完成（6 份文件、231 筆 unit、120 條引用邊；見 [data/README.md](data/README.md)） |
 | 2 | 問診樹 JSON + 前端 + 前端檢索 | 完成（降級版可獨立運作，見下方「本機啟動」） |
-| 3 | Ollama 生成層 + Tunnel + 降級切換 | 未開始 |
+| 3 | Ollama 生成層 + Tunnel + 降級切換 | 完成（後端 `server/` 與前端完整版／降級版皆可用；Cloudflare Tunnel 待設定，正式站目前會自動降級） |
 | 4 | 目錄層 + 轉介資源表 + 非法律模板 | 未開始 |
 | 5 | 評測集與量測腳本 | 未開始 |
 | 6 | README、設計取捨文件、Demo 影片 | 未開始 |
@@ -49,4 +49,21 @@ npm test           # tokenizer、問診樹完整性、各葉節點檢索、delet
 npm run build      # 輸出純靜態檔到 web/dist（尚未部署）
 ```
 
-目前沒有生成服務：頁首會顯示「降級版（未連線生成服務）」。Phase 3 只需設定環境變數 `VITE_API_URL`（參考 `web/.env.example`）。設計說明見 [ADR 0007](docs/decisions/0007-chinese-tokenizer.md)、[ADR 0008](docs/decisions/0008-consultation-tree-as-data.md)。
+`npm run dev` 預設不連生成服務：頁首顯示「降級版（未連線生成服務）」，只有同義詞展開 + BM25 + 原文。`npm run build` 會讀 `web/.env.production`，指向 `https://law-api.waniagent.top`；**Cloudflare Tunnel 尚未設定，所以正式站目前會自動降級**。
+
+### 完整版（本機生成服務，Phase 3）
+
+前置：Ollama 在 `:11434` 執行並已 `ollama pull qwen3:14b`。
+
+```
+cd server
+.\start.ps1                      # 綁定 127.0.0.1:8790，詳見 server/README.md
+# 另一個終端機：
+cd web
+echo VITE_API_URL=http://127.0.0.1:8790 > .env.local
+npm run dev
+```
+
+「其他」自由輸入若沒被導向任何問診節點，不會產生 AI 整理（範圍不明時不生成，是刻意設計），只顯示檢索到的原文。
+
+設計說明見 [server/README.md](server/README.md)、[ADR 0009](docs/decisions/0009-generation-service-guardrails.md)、[ADR 0010](docs/decisions/0010-query-expansion-glossary-and-rewrite.md)、 [ADR 0007](docs/decisions/0007-chinese-tokenizer.md)、[ADR 0008](docs/decisions/0008-consultation-tree-as-data.md)。

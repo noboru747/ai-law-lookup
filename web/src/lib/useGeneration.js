@@ -10,6 +10,15 @@ export function citableIds(items) {
 }
 
 /**
+ * Request for the free-text ("其他") page. Generation needs a leaf (the server rejects unknown
+ * leaves), so an un-routed search deliberately gets NO request: scope unknown => no AI answer.
+ */
+export function freeformRequest({ routedLeaf, text, items }) {
+  if (!routedLeaf || routedLeaf.kind === 'out_of_scope') return null;
+  return { leafId: routedLeaf.id, slots: {}, query: text, articleIds: citableIds(items) };
+}
+
+/**
  * Generate the AI answer for a result page.
  * status: 'off' (degraded mode: nothing to show) | 'loading' | 'ok' | 'failed'
  * @param {{leafId: string, slots: object, query: string|null, articleIds: string[]} | null} request
