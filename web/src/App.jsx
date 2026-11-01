@@ -7,9 +7,10 @@ import { checkHealth, MODES } from './lib/generate.js';
 import { assistFreeform, routableLeaf, SKIPPED } from './lib/assist.js';
 import { planQuery } from './lib/glossary.js';
 import { citableIds, freeformRequest, HealthContext, useGeneration, useHealth } from './lib/useGeneration.js';
-import { AnswerPanel, QueryTrace, RoutedBanner } from './components/Answer.jsx';
+import { KeyCard, QueryTrace, RoutedBanner } from './components/Answer.jsx';
+import { splitEvidence, SHORT_NAMES } from './lib/present.js';
 import { useRoute, hrefNode, hrefResult } from './lib/route.js';
-import { ArticleList, ExternalRefs, Facts, Notes, RefList, Referral, Steps } from './components/Results.jsx';
+import { Cards, ExternalRefs, FactsLine, Notes, Referral, Steps } from './components/Results.jsx';
 
 const corpus = loadCorpus();
 const engine = createEngine(corpus);
@@ -36,12 +37,8 @@ function Footer() {
   const m = corpus.manifest;
   return (
     <footer className="site-footer">
-      <p>
-        <strong>法規資訊查詢，非法律意見。</strong>
-        條文以快照日為準，之後的修正不會自動反映。
-      </p>
       <p data-testid="snapshot">
-        資料快照日：{m.snapshot_date}　資料出處：全國法規資料庫（法務部）、行政院全球資訊網（行政院）
+        條文以 {m.snapshot_date} 快照為準，之後的修正不會自動反映。資料出處：全國法規資料庫（法務部）、行政院全球資訊網（行政院）。
       </p>
       <p className="muted">
         {m.attribution}；授權：{m.license}。詳見儲存庫的 NOTICE.md。
@@ -96,7 +93,7 @@ function HomeSearch() {
       <button type="submit" className="primary" disabled={!text.trim()}>
         搜尋相關條文
       </button>
-      <p className="muted">用自己的話寫即可。生成服務可用時，系統會先判斷問題類型再檢索；服務無法使用時改用固定規則檢索，並標示「未經問診」。</p>
+      <p className="muted small">用自己的話寫即可。</p>
     </form>
   );
 }
@@ -116,8 +113,7 @@ function Menu({ node }) {
             <a className="choice" href={c.kind === 'menu' ? hrefNode(c.id) : leafTarget(c)} data-node={c.id}>
               <span className="choice-label">{c.label}</span>
               {c.description && <span className="choice-desc">{c.description}</span>}
-              {c.kind === 'out_of_scope' && <span className="badge badge-ext">不在收錄範圍</span>}
-              {c.kind === 'freeform' && <span className="badge">未經問診</span>}
+              {c.kind === 'out_of_scope' && <span className="choice-desc">不在收錄範圍</span>}
             </a>
           </li>
         ))}
@@ -152,7 +148,7 @@ function SlotForm({ leaf }) {
       <h1>{leaf.label}</h1>
       <p className="lead">{leaf.description}</p>
       <form onSubmit={submit} className="slot-form" aria-label="補充情況">
-        <p className="muted">只問會影響結果的欄位，一次填完。不確定的可以選「不確定」或留白。</p>
+        <p className="muted small">不確定的可以選「不確定」或留白。</p>
         {shown.map((s) => (
           <label key={s.id} className="field">
             <span className="field-label">
@@ -198,10 +194,7 @@ function FreeformInput({ node, initial = '' }) {
     <main>
       <Crumbs id={node.id} />
       <h1>{node.label}</h1>
-      <div className="banner" role="note">
-        <strong>{tpl.banner}</strong>
-        <div>{tpl.detail}</div>
-      </div>
+      <p className="muted small">{tpl.banner}：{tpl.detail}</p>
       <form onSubmit={submit} className="slot-form" aria-label="自由輸入">
         <label className="field">
           <span className="field-label">用自己的話描述你的情況</span>
@@ -222,33 +215,55 @@ function ScopeLine({ leaf }) {
     const extra = [e.part && [].concat(e.part).join('／'), e.section, e.chapter && e.chapter.replace(/^第.章\s*/, ''), e.ids && '指定條文']
       .filter(Boolean)
       .join('、');
-    names.push(`${d.short_name || d.law_name}${extra ? `（${extra}）` : ''}`);
+    names.push(`${shortName(e.doc, d)}${extra ? `（${extra}）` : ''}`);
   }
-  return <p className="muted scope">檢索範圍（由問診結果決定）：{names.join('、')}</p>;
+  return <p className="muted small scope">檢索範圍：{names.join('、')}</p>;
 }
 
-/** Everything below the facts for one leaf result (shared by the slot flow and the routed free-text flow). */
-function LeafBody({ leaf, res }) {
-  const pinned = res.items.filter((i) => i.source !== 'bm25');
-  const rest = res.items.filter((i) => i.source === 'bm25');
-  const isProcess = leaf.kind === 'process';
-  const stepIds = new Set(res.steps.flatMap((s) => s.unitIds));
-  const nonStepPinned = pinned.filter((i) => !stepIds.has(i.unit.id));
+const shortName = (docId, d) => SHORT_NAMES[docId] ?? d.short_name ?? d.law_name;
+
+/**
+ * The result layout shared by every result page. Key points on top, details folded away:
+ *   key card -> what you can do -> evidence (cited / core articles, collapsed) -> more (collapsed)
+ * `leaf` is null for un-routed free text. `aiNote` replaces the "AI is off" sentence.
+ */
+function ResultBody({ leaf, res, gen, aiNote, showSteps = true }) {
+  const cited = gen.status === 'ok' ? gen.citations : [];
+  const { core, more } = useMemo(
+    () => splitEvidence({ items: res.items, refs: res.refs ?? [], cited }),
+    [res, gen.status === 'ok' ? gen.citations.join('|') : ''],
+  );
+  const isProcess = leaf?.kind === 'process' && res.steps;
+  const hasAi = gen.status === 'ok';
+  const external = res.external ?? [];
+  const empty = res.items.length === 0;
   return (
     <>
-      {leaf.caveat && <p className="caveat">{leaf.caveat}</p>}
-      <ScopeLine leaf={leaf} />
-      {isProcess ? (
-        <>
-          <Steps steps={res.steps} items={res.items} engine={engine} />
-          <ArticleList items={nonStepPinned} engine={engine} heading="依你的回答帶出的條文" />
-        </>
-      ) : (
-        <ArticleList items={pinned} engine={engine} heading="依你的情況帶出的條文" />
+      <KeyCard gen={gen} core={core} units={engine.byId} docs={engine.docs} offNote={aiNote} />
+      <Notes notes={res.notes} open={!hasAi} />
+
+      <section className="panel todo" aria-label="你可以怎麼做">
+        <h2>你可以怎麼做</h2>
+        {isProcess && showSteps && <Steps steps={res.steps} items={res.items} docs={engine.docs} />}
+        <Referral templates={tree.templates} />
+      </section>
+
+      {!empty && (
+        <section aria-label="依據條文" className="evidence">
+          <h2>依據條文（{core.length}）</h2>
+          {leaf?.caveat && <p className="caveat">{leaf.caveat}</p>}
+          <Cards items={core} engine={engine} />
+        </section>
       )}
-      <ArticleList items={rest.filter((i) => !stepIds.has(i.unit.id))} engine={engine} heading="其他相關條文（關鍵字檢索）" />
-      <RefList refs={res.refs} engine={engine} />
-      <ExternalRefs external={res.external} units={engine.byId} />
+
+      {(more.length > 0 || external.length > 0 || leaf) && (
+        <details className="more" data-testid="more">
+          <summary>更多相關條文（{more.length}）</summary>
+          {leaf && <ScopeLine leaf={leaf} />}
+          <Cards items={more} engine={engine} />
+          <ExternalRefs external={external} units={engine.byId} />
+        </details>
+      )}
     </>
   );
 }
@@ -265,12 +280,9 @@ function QueryResult({ leaf, params }) {
       <Crumbs id={leaf.id} />
       <h1>{leaf.label}</h1>
       <p className="lead">{leaf.intro}</p>
-      <AnswerPanel gen={gen} units={engine.byId} />
-      <Facts facts={res.facts} units={engine.byId} />
-      <Notes notes={res.notes} />
-      <LeafBody leaf={leaf} res={res} />
-      <Referral templates={tree.templates} />
-      <p>
+      <FactsLine facts={res.facts} units={engine.byId} />
+      <ResultBody leaf={leaf} res={res} gen={gen} />
+      <p className="back-links">
         <a href={hrefNode(leaf.id)}>修改回答</a>　<a href="#/">回到首頁</a>
       </p>
     </main>
@@ -289,11 +301,10 @@ function OutOfScopePanel({ leaf }) {
           <li key={l.name}>
             {l.name}
             {l.topic ? `（${l.topic}）` : ''}
-            <span className="badge badge-ext">不在收錄範圍</span>
           </li>
         ))}
       </ul>
-      <p>{leaf.reason}</p>
+      <p className="muted">{leaf.reason}</p>
     </section>
   );
 }
@@ -304,8 +315,11 @@ function OutOfScope({ leaf }) {
       <Crumbs id={leaf.id} />
       <h1>{leaf.label}</h1>
       <OutOfScopePanel leaf={leaf} />
-      <Referral templates={tree.templates} />
-      <p>
+      <section className="panel todo" aria-label="你可以怎麼做">
+        <h2>你可以怎麼做</h2>
+        <Referral templates={tree.templates} />
+      </section>
+      <p className="back-links">
         <a href="#/">回到首頁</a>
       </p>
     </main>
@@ -360,22 +374,17 @@ function FreeformResult({ leaf, params }) {
         .map((n) => n.label)
         .join(' › ')
     : '';
+  const aiNote = full && !scoped ? '未經問診，不產生 AI 整理；可在上方選擇問題類型。' : undefined;
   return (
     <main>
       <Crumbs id={leaf.id} />
       <h1>{leaf.label}</h1>
-      <div className="banner" role="note" data-testid="freeform-banner">
-        <strong>{tpl.banner}</strong>
-        <div>{tpl.detail}</div>
-      </div>
-      <p className="lead">
-        你輸入的內容：<q>{text}</q>
+      <p className="lead" data-testid="freeform-banner">
+        你輸入：<q>{text}</q>　<span className="tag-warn">{tpl.banner}</span>
       </p>
       {waiting ? (
         <p className="panel" role="status" data-testid="freeform-waiting">
-          {health.mode === 'checking'
-            ? '正在檢查生成服務…'
-            : '正在判斷問題類型並整理檢索詞…（服務無回應時最多等待約 15 秒，之後會自動改用固定規則檢索）'}
+          {health.mode === 'checking' ? '正在檢查生成服務…' : '正在判斷問題類型…（最多等約 15 秒，之後自動改用固定規則檢索）'}
         </p>
       ) : (
         <>
@@ -389,40 +398,38 @@ function FreeformResult({ leaf, params }) {
               onChange={(v) => setOverride(v || null)}
             />
           )}
-          <QueryTrace plan={plan} assist={assist} scope={scopeText} />
           {routedLeaf && !searchable && <OutOfScopePanel leaf={routedLeaf} />}
-          {res && (
+          {res &&
+            (res.items.length === 0 ? (
+              <>
+                <p className="panel">{tpl.empty}</p>
+                <section className="panel todo" aria-label="你可以怎麼做">
+                  <h2>你可以怎麼做</h2>
+                  <Referral templates={tree.templates} />
+                </section>
+              </>
+            ) : (
+              <ResultBody leaf={scoped} res={res} gen={gen} aiNote={aiNote} />
+            ))}
+          {!(routedLeaf && !searchable) && (
             <>
-              <AnswerPanel gen={gen} units={engine.byId} />
-              {full && !scoped && (
-                <p className="panel" data-testid="no-ai-unrouted">
-                  未經問診，不產生 AI 整理，結果僅供參考。（範圍不明時不生成，是刻意的設計；可在上方選擇問題類型，或從首頁依情境進入。）
+              <QueryTrace plan={plan} assist={assist} scope={scopeText} />
+              {scoped && (
+                <p className="muted small">
+                  這是依導向節點檢索的結果，<a href={hrefNode(scoped.id)}>填寫問診</a>可讓條文更貼合你的情況。
                 </p>
-              )}
-              {scoped ? (
-                <>
-                  <p className="muted">
-                    這是依導向節點檢索的結果，尚未經問診；<a href={hrefNode(scoped.id)}>填寫問診</a>可讓條文更貼合你的情況。
-                  </p>
-                  <LeafBody leaf={scoped} res={res} />
-                </>
-              ) : (
-                <>
-                  {res.items.length === 0 ? (
-                    <p className="panel">{tpl.empty}</p>
-                  ) : (
-                    <ArticleList items={res.items} engine={engine} heading="關鍵字檢索結果（全部收錄條文）" />
-                  )}
-                  <RefList refs={res.refs} engine={engine} />
-                  <ExternalRefs external={res.external} units={engine.byId} />
-                </>
               )}
             </>
           )}
         </>
       )}
-      <Referral templates={tree.templates} />
-      <p>
+      {routedLeaf && !searchable && (
+        <section className="panel todo" aria-label="你可以怎麼做">
+          <h2>你可以怎麼做</h2>
+          <Referral templates={tree.templates} />
+        </section>
+      )}
+      <p className="back-links">
         <a href={hrefNode(leaf.id)}>重新輸入</a>　<a href="#/">回到首頁</a>
       </p>
     </main>

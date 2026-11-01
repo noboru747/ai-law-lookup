@@ -114,7 +114,7 @@ describe('citation validation (the model may only cite what we sent)', () => {
   const sent = ['cpa-019', 'cpa-018'];
   test('valid answer passes, citations de-duplicated, caveats kept', () => {
     const v = validateGeneration({ answer: ' 答 ', citations: ['cpa-019', 'cpa-019'], caveats: ['注意', '', 3] }, sent);
-    expect(v).toEqual({ ok: true, answer: '答', citations: ['cpa-019'], caveats: ['注意'] });
+    expect(v).toEqual({ ok: true, summary: '', points: [], answer: '答', citations: ['cpa-019'], caveats: ['注意'] });
   });
   test('one citation outside the sent ids rejects the whole answer', () => {
     const v = validateGeneration({ answer: '答', citations: ['cpa-019', 'cpa-099'], caveats: [] }, sent);
@@ -137,7 +137,40 @@ describe('citation validation (the model may only cite what we sent)', () => {
     }
   });
   test('empty citations are allowed (the UI says the answer cites nothing); caveats default to []', () => {
-    expect(validateGeneration({ answer: '答', citations: [] }, sent)).toEqual({ ok: true, answer: '答', citations: [], caveats: [] });
+    expect(validateGeneration({ answer: '答', citations: [] }, sent)).toEqual({ ok: true, summary: '', points: [], answer: '答', citations: [], caveats: [] });
+  });
+  describe('new format (summary + points)', () => {
+    const P = (text, citations) => ({ text, citations });
+    test('valid points pass; citations are the union, caveats trimmed', () => {
+      const v = validateGeneration({ summary: ' 七日內可退 ', points: [P('a', ['cpa-019']), P('b', ['cpa-018', 'cpa-019'])], answer: '長答案', citations: ['cpa-019'], caveats: [' 小提醒 '] }, sent);
+      expect(v).toEqual({ ok: true, summary: '七日內可退', points: [P('a', ['cpa-019']), P('b', ['cpa-018', 'cpa-019'])], answer: '長答案', citations: ['cpa-019', 'cpa-018'], caveats: ['小提醒'] });
+    });
+    test('a point citing something not sent is dropped, the others stay', () => {
+      const v = validateGeneration({ summary: 's', points: [P('ok', ['cpa-019']), P('bad', ['cpa-099']), P('mixed', ['cpa-018', 'gift-must-003'])] }, sent);
+      expect(v.ok).toBe(true);
+      expect(v.points).toEqual([P('ok', ['cpa-019'])]);
+      expect(v.citations).toEqual(['cpa-019']);
+    });
+    test('points without citations or text are dropped', () => {
+      const v = validateGeneration({ points: [P('no cite', []), { text: 'x' }, P(' ', ['cpa-019']), P('fine', [{ article_id: 'cpa-018' }])] }, sent);
+      expect(v.points).toEqual([P('fine', ['cpa-018'])]);
+    });
+    test('no valid point left => the whole answer is rejected, even if the legacy fields look fine', () => {
+      const v = validateGeneration({ summary: 's', points: [P('bad', ['cpa-099'])], answer: '答', citations: ['cpa-019'] }, sent);
+      expect(v.ok).toBe(false);
+    });
+    test('an empty points array falls back to the old format', () => {
+      const v = validateGeneration({ points: [], answer: '答', citations: ['cpa-019'] }, sent);
+      expect(v).toMatchObject({ ok: true, answer: '答', points: [] });
+    });
+    test('old format still all-or-nothing when new fields are absent', () => {
+      expect(validateGeneration({ answer: '答', citations: ['cpa-099'] }, sent).ok).toBe(false);
+    });
+    test('end to end: bad point filtered, request still capped to what was sent', async () => {
+      const { f } = backend({ '/generate': () => ok({ summary: 's', points: [{ text: 'a', citations: ['cpa-019'] }, { text: 'b', citations: ['cpa-099'] }], answer: 'x', citations: [], caveats: [] }) });
+      const r = await generate({ leafId: 'online.return', articleIds: ['cpa-019'] }, { apiUrl: U, fetchImpl: f });
+      expect(r.ok && r.points.map((p) => p.text)).toEqual(['a']);
+    });
   });
   test('end to end through generate(): a hallucinated citation never reaches the caller', async () => {
     const { f } = backend({ '/generate': () => ok({ answer: '答', citations: ['cpa-099'], caveats: [] }) });

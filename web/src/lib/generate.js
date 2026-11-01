@@ -3,7 +3,8 @@
 //   GET  /health    -> 200 {"status":"ok","model":"..."}        (503 when unavailable)
 //   POST /rewrite   {query, leaf_id|null}              -> {terms:[...]}
 //   POST /route     {text}                             -> {leaf_id|null, confidence:"high"|"low"}
-//   POST /generate  {leaf_id, slots, query|null, article_ids:[...]} -> {answer, citations, caveats}
+//   POST /generate  {leaf_id, slots, query|null, article_ids:[...]}
+//                   -> {summary?, points?:[{text, citations}], answer, citations, caveats}
 //
 // Rules shared by every call: any non-2xx, network error, timeout (15 s) or malformed body means
 // "that feature is degraded". Nothing here ever throws, and nothing else on the page depends on it.
@@ -81,26 +82,52 @@ export async function route(text, opts = {}) {
   return { ok: true, leafId, confidence };
 }
 
+/** id of a citation given as a string or as an object carrying `article_id` / `id`. */
+function citationId(c) {
+  return typeof c === 'string' ? c : c && typeof c === 'object' ? (c.article_id ?? c.id) : null;
+}
+
 /**
- * Check a /generate response against what we actually sent.
- * The answer is shown only if every citation is one of the article ids of THIS request, so a
- * model that invents or recalls an article we did not give it can never put it on screen.
- * Citations may be id strings, or objects carrying the id as `article_id` / `id`.
- * @returns {{ok: true, answer: string, citations: string[], caveats: string[]} | {ok: false, reason: string}}
+ * Check a /generate response against what we actually sent. Two formats are understood:
+ *
+ *  - new: {summary, points:[{text, citations:[id]}], caveats, ...}. Each point is checked on its own:
+ *    a point is kept only if it has text and EVERY citation is one of this request's article ids.
+ *    Bad points are dropped; if none survive, the whole answer is rejected (nothing is shown).
+ *    The legacy `answer`/`citations` fields are ignored in this case.
+ *  - old: {answer, citations, caveats}. All-or-nothing: one foreign citation rejects the answer.
+ *
+ * Either way a model that invents or recalls an article we did not give it can never put it on screen.
+ * @returns {{ok: true, summary: string, points: {text: string, citations: string[]}[], answer: string, citations: string[], caveats: string[]} | {ok: false, reason: string}}
+ *   `points` is [] for the old format (the UI then shows `answer`).
  */
 export function validateGeneration(data, sentIds) {
+  const allowed = new Set(sentIds);
+  if (data?.caveats !== undefined && !Array.isArray(data.caveats)) return { ok: false, reason: '服務回應格式不符' };
+  const caveats = (data?.caveats ?? []).filter((c) => typeof c === 'string' && c.trim()).map((c) => c.trim());
+
+  if (data && Array.isArray(data.points) && data.points.length > 0) {
+    const points = [];
+    for (const p of data.points) {
+      if (!p || typeof p.text !== 'string' || !p.text.trim() || !Array.isArray(p.citations) || p.citations.length === 0) continue;
+      const ids = p.citations.map(citationId);
+      if (ids.some((id) => typeof id !== 'string' || !allowed.has(id))) continue;
+      points.push({ text: p.text.trim(), citations: [...new Set(ids)] });
+    }
+    if (points.length === 0) return { ok: false, reason: '回答的重點都沒有可驗證的條文依據，已捨棄' };
+    const summary = typeof data.summary === 'string' ? data.summary.trim() : '';
+    const citations = [...new Set(points.flatMap((p) => p.citations))];
+    return { ok: true, summary, points, answer: typeof data.answer === 'string' ? data.answer.trim() : '', citations, caveats };
+  }
+
   if (!data || typeof data.answer !== 'string' || !data.answer.trim()) return { ok: false, reason: '服務回應格式不符' };
   if (!Array.isArray(data.citations)) return { ok: false, reason: '服務回應格式不符' };
-  if (data.caveats !== undefined && !Array.isArray(data.caveats)) return { ok: false, reason: '服務回應格式不符' };
-  const allowed = new Set(sentIds);
   const citations = [];
   for (const c of data.citations) {
-    const id = typeof c === 'string' ? c : c && typeof c === 'object' ? (c.article_id ?? c.id) : null;
+    const id = citationId(c);
     if (typeof id !== 'string' || !allowed.has(id)) return { ok: false, reason: '回答引用了未提供的條文，已捨棄' };
     if (!citations.includes(id)) citations.push(id);
   }
-  const caveats = (data.caveats ?? []).filter((c) => typeof c === 'string' && c.trim());
-  return { ok: true, answer: data.answer.trim(), citations, caveats };
+  return { ok: true, summary: '', points: [], answer: data.answer.trim(), citations, caveats };
 }
 
 /**

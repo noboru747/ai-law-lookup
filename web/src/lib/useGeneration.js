@@ -32,7 +32,7 @@ export function useGeneration(request) {
     if (health.mode !== 'full' || !request || request.articleIds.length === 0) return undefined;
     let alive = true;
     generate(request).then((r) => {
-      if (alive) setState({ key, ...(r.ok ? { status: 'ok', answer: r.answer, citations: r.citations, caveats: r.caveats } : { status: 'failed', reason: r.reason }) });
+      if (alive) setState({ key, ...(r.ok ? { status: 'ok', answer: r.answer, summary: r.summary, points: r.points, citations: r.citations, caveats: r.caveats } : { status: 'failed', reason: r.reason }) });
     });
     return () => {
       alive = false;
@@ -41,6 +41,7 @@ export function useGeneration(request) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, health.mode]);
 
+  if (health.mode === 'checking' && request && request.articleIds.length > 0) return { status: 'loading' };
   if (health.mode !== 'full' || !request || request.articleIds.length === 0) return { status: 'off' };
   return state.key === key ? state : { status: 'loading' };
 }

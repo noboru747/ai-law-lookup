@@ -1,11 +1,13 @@
-// Generated answer + the traceability widgets of the full mode.
+import { firstSentence, shortRef } from '../lib/present.js';
+
+// The key-points card of a result + the traceability widgets of the full mode.
 // Everything here is presentation of data that was already validated in lib/generate.js.
 
-/** Scroll to an article card, open it and flash it. Cards carry data-unit-id (ArticleCard). */
+/** Scroll to an article card, open it (and every collapsed section around it) and flash it. */
 export function jumpToUnit(id) {
   const el = Array.from(document.querySelectorAll('[data-unit-id]')).find((n) => n.dataset.unitId === id);
   if (!el) return false;
-  if (el.tagName === 'DETAILS') el.open = true;
+  for (let n = el; n; n = n.parentElement) if (n.tagName === 'DETAILS') n.open = true;
   el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   el.classList.remove('flash');
   void el.offsetWidth; // restart the animation
@@ -14,64 +16,102 @@ export function jumpToUnit(id) {
   return true;
 }
 
-export function AnswerPanel({ gen, units }) {
-  if (gen.status === 'off') return null;
+function CiteChip({ id, units, docs }) {
+  const u = units.get(id);
+  return (
+    <button type="button" className="cite" data-cite={id} onClick={() => jumpToUnit(id)}>
+      {u ? shortRef(u, docs[u.doc_id]) : id}
+    </button>
+  );
+}
+
+/** No AI text: list the most relevant articles (heading + first sentence) instead. */
+function FallbackList({ core, docs, note }) {
+  return (
+    <>
+      <h2>這個情況最相關的條文</h2>
+      {core.length > 0 ? (
+        <ul className="core-list">
+          {core.map((it) => (
+            <li key={it.unit.id}>
+              <button type="button" className="core-row" onClick={() => jumpToUnit(it.unit.id)}>
+                <span className="core-ref">{shortRef(it.unit, docs[it.unit.doc_id])}</span>
+                <span className="core-text">{it.unit.title?.trim() ? `${it.unit.title}｜${firstSentence(it.unit.text, 36)}` : firstSentence(it.unit.text, 60)}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="muted">沒有找到相關條文。</p>
+      )}
+      <p className="muted small" data-testid="ai-off-note">
+        {note}
+      </p>
+    </>
+  );
+}
+
+/**
+ * gen: from useGeneration. core: the evidence items (used for the no-AI version).
+ * offNote overrides the "AI is off" sentence.
+ */
+export function KeyCard({ gen, core, units, docs, offNote }) {
   if (gen.status === 'loading') {
     return (
-      <section className="panel answer answer-loading" aria-label="AI 整理回答" aria-busy="true" data-testid="answer-loading">
-        <h2>AI 整理回答</h2>
-        <p className="muted">正在整理回答…（最多等待 15 秒；下方原文不受影響）</p>
+      <section className="panel keycard keycard-loading" aria-label="重點" aria-busy="true" data-testid="answer-loading">
+        <p className="muted">正在整理重點…（最多 15 秒，下方原文不受影響）</p>
       </section>
     );
   }
-  if (gen.status === 'failed') {
+  if (gen.status !== 'ok') {
+    const note = gen.status === 'failed' ? `這次沒有產生 AI 整理（${gen.reason}），以下為原文。` : (offNote ?? 'AI 整理目前未啟用，以下為原文。');
     return (
-      <section className="panel answer answer-failed" aria-label="AI 整理回答" data-testid="answer-failed">
-        <h2>AI 整理回答</h2>
-        <p>
-          這次沒有產生 AI 回答（原因：{gen.reason}）。以下僅顯示法規原文，內容與降級版相同。
-        </p>
+      <section className="panel keycard" aria-label="重點" data-testid={gen.status === 'failed' ? 'answer-failed' : 'keycard-fallback'}>
+        <FallbackList core={core} docs={docs} note={note} />
       </section>
     );
   }
+  const hasPoints = gen.points.length > 0;
   return (
-    <section className="panel answer" aria-label="AI 整理回答" data-testid="answer">
-      <div className="answer-head">
-        <h2>AI 整理回答</h2>
-        <span className="badge badge-ai">AI 整理，以下方原文為準</span>
-      </div>
-      <div className="answer-text" lang="zh-Hant">
-        {gen.answer.split(/\n+/).map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </div>
-      {gen.caveats.length > 0 && (
-        <div className="caveats" role="note" data-testid="caveats">
-          <strong>請特別留意</strong>
-          <ul>
-            {gen.caveats.map((c, i) => (
-              <li key={i}>{c}</li>
+    <section className="panel keycard" aria-label="重點" data-testid="answer">
+      {hasPoints ? (
+        <>
+          {gen.summary && <p className="summary">{gen.summary}</p>}
+          <ul className="points" data-testid="points">
+            {gen.points.map((p, i) => (
+              <li key={i}>
+                <span>{p.text}</span>{' '}
+                {p.citations.map((id) => (
+                  <CiteChip key={id} id={id} units={units} docs={docs} />
+                ))}
+              </li>
             ))}
           </ul>
+        </>
+      ) : (
+        <div className="answer-text" lang="zh-Hant">
+          {gen.answer.split(/\n+/).map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+          {gen.citations.length > 0 && (
+            <div className="chips" data-testid="citations">
+              {gen.citations.map((id) => (
+                <CiteChip key={id} id={id} units={units} docs={docs} />
+              ))}
+            </div>
+          )}
         </div>
       )}
-      <div className="citations" data-testid="citations">
-        {gen.citations.length > 0 ? (
-          <>
-            <span className="muted">引用條文（點擊跳到下方原文）：</span>
-            {gen.citations.map((id) => {
-              const u = units.get(id);
-              return (
-                <button key={id} type="button" className="cite" data-cite={id} onClick={() => jumpToUnit(id)}>
-                  {u ? `${u.law_name} ${u.no_label}` : id}
-                </button>
-              );
-            })}
-          </>
-        ) : (
-          <span className="muted">這則回答沒有引用特定條文，請直接閱讀下方原文。</span>
-        )}
-      </div>
+      {gen.caveats.length > 0 && (
+        <p className="caveat-line" data-testid="caveats">
+          {gen.caveats.slice(0, 2).map((c, i) => (
+            <span key={i} className="caveat-item">
+              {c}
+            </span>
+          ))}
+        </p>
+      )}
+      <p className="ai-tag">AI 整理，以原文為準</p>
     </section>
   );
 }
