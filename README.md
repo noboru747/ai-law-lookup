@@ -22,6 +22,8 @@
 | 5 | 評測集與量測腳本 | 未開始 |
 | 6 | README、設計取捨文件、Demo 影片 | 未開始 |
 
+後續待辦清單見 [docs/TODO.md](docs/TODO.md)。
+
 > 本 README 為簡短版，Phase 6 會重寫。
 
 ## 資料出處與授權
