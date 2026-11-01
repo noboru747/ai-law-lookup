@@ -21,7 +21,7 @@ cd server
 | `GET /health` | | `{"status":"ok","model":...}` / 503 |
 | `POST /rewrite` | `{"query","leaf_id"?}` | `{"terms":[...]}` |
 | `POST /route` | `{"text"}` | `{"leaf_id":str\|null,"confidence":"high"\|"low"}` |
-| `POST /generate` | `{"leaf_id","slots","query"?,"article_ids"}` | `{"answer","citations","caveats"}` |
+| `POST /generate` | `{"leaf_id","slots","query"?,"article_ids"}` | `{"summary","points":[{"text","citations"}],"answer","citations","caveats"}` |
 
 狀態碼：`400` 未知／已刪除條文或不可生成的葉節點；`422` 格式錯誤、`article_ids` 為空（不呼叫模型）、長度超限；`413` body 過大；`429` 超過頻率；`502` 模型輸出驗證失敗或 Ollama 錯誤（前端降級）；`503` 忙碌。
 
