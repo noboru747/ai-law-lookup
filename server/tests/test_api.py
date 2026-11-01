@@ -42,7 +42,14 @@ def make(replies, tags=("qwen3:14b",), **kw):
     return TestClient(create_app(st, llm=llm)), fake
 
 
-GOOD = {"answer": "條文規定七日內得解除契約。[cpa-019]", "citations": ["cpa-019"], "caveats": ["取決於契約內容"]}
+GOOD = {
+    "summary": "條文規定，網購商品收到後七日內，消費者得解除契約。",
+    "points": [
+        {"text": "收貨後七日內，消費者得不附理由解除契約。", "citations": ["cpa-019"]},
+        {"text": "退回商品的必要費用，條文另有規定。", "citations": ["cpa-019"]},
+    ],
+    "caveats": ["取決於契約內容"],
+}
 REQ = {"leaf_id": "online.return", "slots": {"channel": "online", "item_type": "fresh"},
        "query": "生鮮不能退？", "article_ids": ["cpa-019"]}
 
@@ -65,9 +72,13 @@ def test_only_four_routes():
 def test_generate_ok_sends_think_false_and_server_text():
     c, f = make([GOOD])
     r = c.post("/generate", json=REQ)
-    assert r.status_code == 200 and r.json()["citations"] == ["cpa-019"]
+    j = r.json()
+    assert r.status_code == 200 and j["citations"] == ["cpa-019"]
+    assert j["summary"] and len(j["points"]) == 2 and j["caveats"] == ["取決於契約內容"]
+    assert j["answer"].startswith("收貨後七日內") and "[cpa-019]" in j["answer"]  # legacy field kept
     call = f.calls[0]
-    assert call["think"] is False and call["format"]["properties"]["citations"]["items"]["enum"] == ["cpa-019"]
+    assert call["think"] is False
+    assert call["format"]["properties"]["points"]["items"]["properties"]["citations"]["items"]["enum"] == ["cpa-019"]
     user = call["messages"][1]["content"]
     assert "<article id=\"cpa-019\"" in user and "七日" in user  # text came from data/laws, not the client
     assert "生鮮食品" in user  # slot option label resolved from tree.json
@@ -101,39 +112,74 @@ def test_unknown_or_oos_leaf_400():
 
 
 def test_citation_outside_supplied_ids_retries_then_ok():
-    bad = {**GOOD, "citations": ["cpa-020"]}
+    bad = {**GOOD, "points": [{"text": "x重點", "citations": ["cpa-020"]}, GOOD["points"][1]]}
     c, f = make([bad, GOOD])
     assert c.post("/generate", json=REQ).status_code == 200
     assert len(f.calls) == 2
 
 
 def test_citation_outside_fails_twice_502():
-    bad = {**GOOD, "citations": ["cpa-020"]}
+    bad = {**GOOD, "points": [{"text": "x重點", "citations": ["cpa-020"]}, GOOD["points"][1]]}
     c, f = make([bad, bad])
     assert c.post("/generate", json=REQ).status_code == 502
     assert len(f.calls) == 2
 
 
-def test_answer_bracket_id_outside_rejected():
-    bad = {**GOOD, "answer": "見[cpa-020]。"}
-    c, _ = make([bad, bad])
-    assert c.post("/generate", json=REQ).status_code == 502
+@pytest.mark.parametrize("field", ["summary", "point"])
+def test_id_string_in_text_rejected(field):
+    if field == "summary":
+        bad = {**GOOD, "summary": "條文規定七日內得解除契約[cpa-019]。"}
+    else:
+        bad = {**GOOD, "points": [{"text": "依 cpa-019 七日內得解除。", "citations": ["cpa-019"]}, GOOD["points"][1]]}
+    c, f = make([bad, bad])
+    assert c.post("/generate", json=REQ).status_code == 502 and len(f.calls) == 2
+
+
+def test_empty_points_retry_then_ok_and_twice_502():
+    c, f = make([{**GOOD, "points": []}, GOOD])
+    assert c.post("/generate", json=REQ).status_code == 200 and len(f.calls) == 2
+    c, f = make([{**GOOD, "points": []}] * 2)
+    assert c.post("/generate", json=REQ).status_code == 502 and len(f.calls) == 2
+
+
+def test_empty_summary_or_point_without_citations_retry():
+    c, f = make([{**GOOD, "summary": " "}, GOOD])
+    assert c.post("/generate", json=REQ).status_code == 200 and len(f.calls) == 2
+    nocite = {**GOOD, "points": [{"text": "重點", "citations": []}, GOOD["points"][1]]}
+    c, f = make([nocite, GOOD])
+    assert c.post("/generate", json=REQ).status_code == 200 and len(f.calls) == 2
+
+
+def test_overlong_summary_rejected_but_slack_allowed():
+    c, f = make([{**GOOD, "summary": "條文規定" + "條" * 87}, GOOD])
+    assert c.post("/generate", json=REQ).status_code == 200 and len(f.calls) == 2
+    c, f = make([{**GOOD, "summary": "條文規定" + "條" * 81}])  # over 60, within 1.5x
+    assert c.post("/generate", json=REQ).status_code == 200 and len(f.calls) == 1
+
+
+def test_response_citations_union_and_caveats_capped():
+    two = {**GOOD, "caveats": ["甲", "乙", "丙"],
+           "points": [{"text": "重點一", "citations": ["cpa-019", "cpa-018"]},
+                      {"text": "重點二", "citations": ["cpa-018"]}]}
+    c, _ = make([two])
+    j = c.post("/generate", json={**REQ, "article_ids": ["cpa-019", "cpa-018"]}).json()
+    assert j["citations"] == ["cpa-019", "cpa-018"] and j["caveats"] == ["甲", "乙"]
 
 
 def test_answer_mentions_unprovided_article_number_rejected():
-    bad = {**GOOD, "answer": "依第 55 條規定。[cpa-019]"}
+    bad = {**GOOD, "summary": "條文規定依第 55 條，七日內得解除契約。"}
     c, _ = make([bad, GOOD])
     r = c.post("/generate", json=REQ)
-    assert r.status_code == 200 and "55" not in r.json()["answer"]
+    assert r.status_code == 200 and "55" not in r.json()["summary"]
 
 
 def test_answer_mentioning_own_number_is_fine():
-    ok = {**GOOD, "answer": "第 19 條規定七日。[cpa-019]"}
+    ok = {**GOOD, "summary": "條文規定第 19 條七日內得解除契約。"}
     c, f = make([ok])
     assert c.post("/generate", json=REQ).status_code == 200 and len(f.calls) == 1
 
 
-@pytest.mark.parametrize("raw", ["not json at all", "<think>x</think>{}", "[1,2]", {"answer": "x"}, {}])
+@pytest.mark.parametrize("raw", ["not json at all", "<think>x</think>{}", "[1,2]", {"summary": "x"}, {}])
 def test_malformed_output_retry_then_502(raw):
     c, f = make([raw, raw])
     assert c.post("/generate", json=REQ).status_code == 502
@@ -201,6 +247,12 @@ def test_number_helpers():
 
 
 def test_verdict_language_rejected_then_retry():
-    bad = {**GOOD, "answer": "你一定可以退貨。[cpa-019]"}
-    c, f = make([bad, GOOD])
+    for phrase in ["你一定可以退貨。", "可無條件退貨。", "消費者可以退貨。"]:
+        bad = {**GOOD, "summary": phrase}
+        c, f = make([bad, GOOD])
+        assert c.post("/generate", json=REQ).status_code == 200 and len(f.calls) == 2
+
+
+def test_summary_must_open_with_statute_phrasing():
+    c, f = make([{**GOOD, "summary": "網購商品七日內得解除契約。"}, GOOD])
     assert c.post("/generate", json=REQ).status_code == 200 and len(f.calls) == 2

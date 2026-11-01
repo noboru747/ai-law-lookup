@@ -2,7 +2,7 @@
 
     python smoke.py [base_url]        # default http://127.0.0.1:8790, service must be running
 
-Prints a one-line-per-case summary: status, latency, citations, answer head, caveat count.
+Prints a one-line-per-case summary: status, latency, citations, summary, points, caveats.
 """
 import json
 import sys
@@ -47,7 +47,9 @@ with httpx.Client() as c:
         j = r.json()
         if r.status_code == 200:
             print(f"[{leaf}] 200 {dt:.1f}s cites={j['citations']} caveats={len(j['caveats'])}")
-            print("   A:", j["answer"].replace("\n", " "))
+            print("   S:", j["summary"])
+            for pt in j["points"]:
+                print("   P:", pt["text"], pt["citations"])
             for cv in j["caveats"]:
                 print("   C:", cv)
         else:

@@ -40,14 +40,14 @@ class OllamaClient:
             pass
 
     async def chat_json(self, system: str, user: str, schema: dict, timeout: float,
-                        num_predict: int | None = None) -> dict:
+                        num_predict: int | None = None, temperature: float = 0) -> dict:
         body = {
             "model": self.model,
             "stream": False,
             "think": False,
             "format": schema,
             "keep_alive": self.keep_alive,
-            "options": {"temperature": 0, "num_predict": num_predict or self.num_predict},
+            "options": {"temperature": temperature, "num_predict": num_predict or self.num_predict},
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
         }
         try:
